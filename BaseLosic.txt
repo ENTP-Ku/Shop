@@ -12,6 +12,15 @@ product 테이블의 모든 레코드를 image, name, price 순서로 출력한�
 이미지를 클릭하면 Detail.js로 이동.
 
 Login.js
+아이디 입력칸, 비밀번호 입력칸, 로그인 버튼이 존재한다.
+로그인버튼을 누를때 입력된 값들을 백으로 보내고 users테이블의 내용과 비교한다.
+
+
+Create.js
+
+
+Detail.js
+
 
 
 백엔드:
