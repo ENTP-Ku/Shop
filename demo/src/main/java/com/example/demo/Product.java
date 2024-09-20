@@ -1,28 +1,23 @@
-package com.example.yourproject.model;
+package com.example.demo;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String imageUrl;
+    private String image;
     private String name;
-    private double price;
+    private Integer price;
+    private String kind; // 'top' or 'bottom'
+    private LocalDateTime uploadData;
+    private Long uploadId; // User ID of the uploader
 }
