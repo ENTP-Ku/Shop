@@ -11,7 +11,7 @@ const Login = () => {
   // 로그인 처리 함수
   const handleLogin = () => {
     // POST 요청을 통해 로그인 시도
-    axios.post('/api/login', { id, password })
+    axios.post('/api/users/login', { id, password })
       .then(res => {
         // 로그인 성공 시 JWT를 로컬 스토리지에 저장
         localStorage.setItem('jwt', res.data.token);

@@ -1,5 +1,7 @@
 package com.example.demo; // 패키지 선언
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
 import org.springframework.http.ResponseEntity; // HTTP 응답을 표현하기 위한 import
 import org.springframework.web.bind.annotation.*; // RESTful API 어노테이션을 위한 import
@@ -13,10 +15,31 @@ public class UserController {
 
     // 사용자 등록 엔드포인트
     @PostMapping("/register") // POST 요청을 처리
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody User user) {    	
         User newUser = userService.registerUser(user); // 사용자 등록 서비스 호출
         return ResponseEntity.ok(newUser); // 등록된 사용자 정보를 포함한 200 OK 응답 반환
     }
+    
+    // 사용자 ID 중복 체크 엔드포인트 추가
+    @PostMapping("/check-username") // 사용자 ID 중복 체크 엔드포인트
+    public ResponseEntity<Boolean> checkUsername(@RequestBody CheckUserRequest request) {
+        String username = request.getUsername(); // DTO에서 username 추출
+        boolean exists = userService.usernameExists(username); // 아이디 존재 여부 확인
+        return ResponseEntity.ok(exists); // 존재하면 true, 아니면 false 반환
+    }
+
+    
+ // 고유번호 중복 체크 엔드포인트 추가
+    @PostMapping("/check-unique-number")
+    public ResponseEntity<Boolean> checkUniqueNumber(@RequestBody CheckUserRequest request) {
+        System.out.println("고유번호 중복확인 엔드포인트에 접근 성공!!!");
+        boolean exists = userService.uniqueNumberExists(request.getUniqueNumber());
+        return ResponseEntity.ok(exists);
+    }
+
+
+
+
 
     // 사용자 로그인 엔드포인트
     @PostMapping("/login") // POST 요청을 처리

@@ -13,6 +13,17 @@ public class UserService {
     public User registerUser(User user) {
         return userRepository.save(user); // 사용자 정보를 저장하고 반환
     }
+    
+    public boolean usernameExists(String username) {
+        return userRepository.existsByUsername(username); // Repository에서 존재 여부 확인
+    }
+    
+    public boolean uniqueNumberExists(String uniqueNumber) {
+    	System.out.println("고유번호 서비스 접근 성공");
+        return userRepository.existsByUniqueNumber(uniqueNumber); // Repository에서 존재 여부 확인
+    }
+
+
 
     // 로그인 메서드
     public User login(String username, String password) {
