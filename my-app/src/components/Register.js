@@ -19,7 +19,7 @@ const Register = () => {
     }
 
     // POST 요청을 통해 회원가입 시도
-    axios.post('/api/register', { id, password, uniqueNumber })
+    axios.post('/api/users/register', { username: id, password, uniqueNumber }) // 엔드포인트 수정
       .then(() => {
         // 회원가입 성공 시 알림
         alert('환영합니다! 로그인 후 이용해주세요');
@@ -27,7 +27,7 @@ const Register = () => {
       })
       .catch(err => {
         // 에러 발생 시 에러 메시지 알림
-        alert(err.response.data.message);
+        alert(err.response?.data?.message || '회원가입 중 오류가 발생했습니다.'); // 안전한 접근
       });
   };
 
