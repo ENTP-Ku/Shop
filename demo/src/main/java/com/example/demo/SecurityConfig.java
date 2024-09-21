@@ -16,8 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable() // CSRF 보호 비활성화 (API의 경우 비활성화 가능)
             .authorizeRequests() // 요청에 대한 권한 설정
-            .requestMatchers("/api/users/**").permitAll() // 특정 경로는 인증 없이 접근 허용
-            .anyRequest().authenticated() // 그 외의 요청은 인증 필요
+            .anyRequest().permitAll() // 모든 요청은 기본적으로 접근 허용
             .and()
             .httpBasic(); // 기본 HTTP 인증 사용 (또는 JWT 인증 방법 사용 가능)
 
