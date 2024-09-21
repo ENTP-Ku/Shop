@@ -1,10 +1,15 @@
 package com.example.demo; // 패키지 선언
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity; // HTTP 응답을 표현하기 위한 import
 import org.springframework.web.bind.annotation.*; // RESTful API 어노테이션을 위한 import
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController // 이 클래스가 RESTful 웹 서비스의 컨트롤러임을 나타냄
 @RequestMapping("/api/users") // 기본 URL 경로 설정
@@ -41,10 +46,28 @@ public class UserController {
 
 
 
-    // 사용자 로그인 엔드포인트
+ // 사용자 로그인 엔드포인트
     @PostMapping("/login") // POST 요청을 처리
-    public ResponseEntity<User> login(@RequestBody User user) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody User user) {
         User loggedInUser = userService.login(user.getUsername(), user.getPassword()); // 로그인 서비스 호출
-        return ResponseEntity.ok(loggedInUser); // 로그인된 사용자 정보를 포함한 200 OK 응답 반환
+        if (loggedInUser != null) { // 로그인 성공 시
+            // JWT 생성
+            String token = Jwts.builder()
+                .setSubject(loggedInUser.getId().toString()) // 사용자 ID를 주제로 설정
+                .signWith(SignatureAlgorithm.HS256, "secretKey") // 비밀 키를 사용하여 서명
+                .compact(); // JWT 생성 완료
+
+            // 토큰과 사용자 정보를 포함한 응답 반환
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("user", loggedInUser);
+            return ResponseEntity.ok(response); // 200 OK 응답
+        } else {
+            // 로그인 실패 시 문자열을 Map으로 래핑
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "로그인 실패");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse); // 401 응답
+        }
     }
+
 }

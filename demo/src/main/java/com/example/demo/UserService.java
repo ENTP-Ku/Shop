@@ -28,7 +28,13 @@ public class UserService {
     // 로그인 메서드
     public User login(String username, String password) {
         User user = userRepository.findByUsername(username); // 사용자 이름으로 사용자 검색
-        // 비밀번호 확인 로직 추가 (예: 비밀번호가 일치하는지 확인)
-        return user; // 현재는 사용자 객체만 반환, 비밀번호 검증은 필요
+
+        // 비밀번호 확인 로직 추가
+        if (user != null && user.getPassword().equals(password)) {
+            return user; // 비밀번호가 일치하면 사용자 객체 반환
+        } else {
+            return null; // 비밀번호가 일치하지 않으면 null 반환
+        }
     }
+
 }
