@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository; // JPA Repository�
 public interface UserRepository extends JpaRepository<User, Long> {
     
 	boolean existsByUsername(String username);
+	
+	boolean existsByUniqueNumber(String uniqueNumber); // 고유번호 존재 여부 확인 메서드 추가
+
 
 	
     // 사용자 이름으로 사용자 정보를 찾는 메서드

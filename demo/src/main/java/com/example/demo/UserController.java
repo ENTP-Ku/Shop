@@ -22,11 +22,22 @@ public class UserController {
     
     // 사용자 ID 중복 체크 엔드포인트 추가
     @PostMapping("/check-username") // 사용자 ID 중복 체크 엔드포인트
-    public ResponseEntity<Boolean> checkUsername(@RequestBody Map<String, String> payload) {
-        String username = payload.get("username"); // JSON에서 username 추출
+    public ResponseEntity<Boolean> checkUsername(@RequestBody CheckUserRequest request) {
+        String username = request.getUsername(); // DTO에서 username 추출
         boolean exists = userService.usernameExists(username); // 아이디 존재 여부 확인
         return ResponseEntity.ok(exists); // 존재하면 true, 아니면 false 반환
     }
+
+    
+ // 고유번호 중복 체크 엔드포인트 추가
+    @PostMapping("/check-unique-number")
+    public ResponseEntity<Boolean> checkUniqueNumber(@RequestBody CheckUserRequest request) {
+        System.out.println("고유번호 중복확인 엔드포인트에 접근 성공!!!");
+        boolean exists = userService.uniqueNumberExists(request.getUniqueNumber());
+        return ResponseEntity.ok(exists);
+    }
+
+
 
 
 
