@@ -9,17 +9,33 @@ const Home = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const navigate = useNavigate();
 
-  // JWT를 로컬 스토리지에서 가져오는 useEffect
-  useEffect(() => {
-    const storedJwt = localStorage.getItem("jwt");
-    setJwt(storedJwt); // jwt 상태 업데이트
-  }, []); // 컴포넌트가 마운트될 때만 실행
 
   // 상품 목록을 가져오기 위한 useEffect
   useEffect(() => {
     axios.get("/api/products").then((res) => setProducts(res.data));
   }, []);
 
+  useEffect(() => {
+    const storedJwt = localStorage.getItem("jwt");
+    setJwt(storedJwt); // jwt 상태 업데이트
+  
+    if (storedJwt) {
+      try {
+        // JWT가 존재할 경우
+        const payload = storedJwt.split(".")[1]; // payload 추출
+        const decodedPayload = JSON.parse(atob(payload)); // Base64 디코딩
+  
+        if (decodedPayload && decodedPayload.username) {
+          setUsername(decodedPayload.username); // username 설정
+        } else {
+          console.error("username not found in payload:", decodedPayload);
+        }
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
+  }, []);
+  
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setJwt(null);
@@ -133,8 +149,8 @@ const Home = () => {
                 alt={product.name}
                 style={{
                   cursor: "pointer",
-                  width: "300px",
-                  height: "300px",
+                  width: "280px",
+                  height: "280px",
                   objectFit: "cover",
                 }}
               />
