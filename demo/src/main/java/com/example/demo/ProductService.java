@@ -33,6 +33,11 @@ public class ProductService {
     private final String uploadDir = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images"; // 이미지 저장 경로 설정
 
     public Product uploadProduct(String name, Integer price, String kind, MultipartFile image) {
+        // 파일 크기 검사
+        if (image.getSize() > 5 * 1024 * 1024) { // 5MB
+            throw new RuntimeException("파일 크기가 너무 큽니다.");
+        }
+
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
