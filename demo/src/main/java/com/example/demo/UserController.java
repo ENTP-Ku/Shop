@@ -54,6 +54,7 @@ public class UserController {
             // JWT 생성
             String token = Jwts.builder()
                 .setSubject(loggedInUser.getId().toString()) // 사용자 ID를 주제로 설정
+                .claim("username", loggedInUser.getUsername()) // username 추가
                 .signWith(SignatureAlgorithm.HS256, "secretKey") // 비밀 키를 사용하여 서명
                 .compact(); // JWT 생성 완료
 
