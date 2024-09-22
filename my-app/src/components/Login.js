@@ -12,7 +12,7 @@ const Login = () => {
     axios.post('/api/users/login', { username, password }) // username으로 변경
       .then(res => {
         console.log("로그인 성공! 응답 데이터:", res.data); // 응답 로그
-        localStorage.setItem('token', res.data.token); // JWT 저장
+        localStorage.setItem('jwt', res.data.token); // JWT 저장
         navigate('/'); // 홈으로 이동
       })
       .catch(err => {
