@@ -30,7 +30,7 @@ public class ProductService {
     }
 
  // 클래스의 필드로 정의
-    private final String uploadDir = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\image"; // 이미지 저장 경로 설정
+    private final String uploadDir = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images"; // 이미지 저장 경로 설정
 
     public Product uploadProduct(String name, Integer price, String kind, MultipartFile image) {
         Product product = new Product();
