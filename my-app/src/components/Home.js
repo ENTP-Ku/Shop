@@ -12,19 +12,9 @@ const Home = () => {
   // JWT를 로컬 스토리지에서 가져오는 useEffect
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt");
-    setJwt(storedJwt); // jwt 상태 업데이트
-    console.log("현재 JWT:", storedJwt); // 콘솔에 JWT 출력
+    setJwt(storedJwt); // jwt 상태 업데이트    
 
-    // JWT가 있을 경우 사용자 이름을 가져오는 API 호출
-    if (storedJwt) {
-      axios.get("/api/user", {
-        headers: { Authorization: `Bearer ${storedJwt}` },
-      })
-      .then((res) => {
-        setUsername(res.data.username); // 사용자 이름 설정
-      })
-      .catch((error) => console.error(error)); // 오류 처리
-    }
+    
   }, []); // 컴포넌트가 마운트될 때만 실행
 
   // 상품 목록을 가져오기 위한 useEffect

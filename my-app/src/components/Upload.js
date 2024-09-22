@@ -27,7 +27,7 @@ const Upload = () => {
 
         try {
             // POST 요청을 통해 상품 등록 시도
-            await axios.post('/api/upload', formData, {
+            await axios.post('/api/products', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' } // 멀티파트 데이터 전송 헤더
             });
             alert('상품이 등록되었습니다.'); // 등록 성공 시 알림
@@ -54,13 +54,15 @@ const Upload = () => {
                 value={price} 
                 onChange={(e) => setPrice(e.target.value)} // 입력값 변경 시 상태 업데이트
             />
-            {/* 종류 입력 필드 */}
-            <input 
-                type="text" 
-                placeholder="종류" 
+            {/* 종류 선택 필드 */}
+            <select 
                 value={kind} 
-                onChange={(e) => setKind(e.target.value)} // 입력값 변경 시 상태 업데이트
-            />
+                onChange={(e) => setKind(e.target.value)} // 선택값 변경 시 상태 업데이트
+            >
+                <option value="">종류 선택</option> {/* 기본 옵션 */}
+                <option value="top">상의</option> {/* 상의 옵션 */}
+                <option value="bottom">하의</option> {/* 하의 옵션 */}
+            </select>
             {/* 이미지 파일 선택 필드 */}
             <input 
                 type="file" 

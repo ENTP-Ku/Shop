@@ -3,6 +3,7 @@ package com.example.demo; // 패키지 선언
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
 import org.springframework.http.ResponseEntity; // HTTP 응답 객체를 다루기 위한 import
 import org.springframework.web.bind.annotation.*; // REST API 관련 어노테이션을 사용하기 위한 import
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
 
@@ -31,12 +32,20 @@ public class ProductController {
         return productService.getProductsByKind(kind); // 제품 서비스에서 종류에 따른 제품 조회
     }
 
-    // 제품을 업로드하는 POST 요청 처리
-    @PostMapping
-    public ResponseEntity<Product> uploadProduct(@RequestBody Product product) {
-        Product newProduct = productService.uploadProduct(product); // 제품 서비스에서 제품 등록
-        return ResponseEntity.ok(newProduct); // 등록된 제품을 응답으로 반환
+    // 제품을 업로드하는 POST 요청 처리 (멀티파트 데이터 처리)
+    @PostMapping(consumes = {"multipart/form-data"}) // 멀티파트 데이터 처리 명시
+    public ResponseEntity<Product> uploadProduct(
+            @RequestParam("name") String name, 
+            @RequestParam("price") Integer price, 
+            @RequestParam("kind") String kind, 
+            @RequestParam("image") MultipartFile image) {
+
+        // 파일을 포함한 데이터 처리 로직
+        Product newProduct = productService.uploadProduct(name, price, kind, image);
+        
+        return ResponseEntity.ok(newProduct);
     }
+
 
     // 특정 ID의 제품을 삭제하는 DELETE 요청 처리
     @DeleteMapping("/{id}")
