@@ -16,10 +16,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 값이 자동으로 생성됨
     private Long id; // 제품의 고유 ID
 
-    private String image; // 제품 이미지의 URL 또는 경로
+    private String imagePath; // 제품 이미지 경로 (문자열)
     private String name; // 제품명
     private Integer price; // 제품 가격
     private String kind; // 제품 종류 (예: 'top' 또는 'bottom')
     private LocalDateTime uploadData; // 제품이 업로드된 날짜와 시간
     private Long uploadId; // 업로더의 사용자 ID
+
+    // 이미지 경로에 대한 getter 및 setter 메서드 (Lombok을 사용하여 자동 생성됨)
 }

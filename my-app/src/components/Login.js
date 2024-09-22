@@ -7,16 +7,13 @@ const Login = () => {
   const [password, setPassword] = useState(''); // 사용자 비밀번호 상태 초기화
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 생성
 
-  const handleLogin = () => {
-    console.log("로그인 시도 중...", { username, password }); // 디버깅 로그
+  const handleLogin = () => {    
     axios.post('/api/users/login', { username, password }) // username으로 변경
-      .then(res => {
-        console.log("로그인 성공! 응답 데이터:", res.data); // 응답 로그
+      .then(res => {        
         localStorage.setItem('jwt', res.data.token); // JWT 저장
         navigate('/'); // 홈으로 이동
       })
-      .catch(err => {
-        console.error("로그인 실패:", err.response.data); // 에러 로그
+      .catch(err => {        
         alert(err.response.data.message); // 에러 메시지 알림
       });
   };
