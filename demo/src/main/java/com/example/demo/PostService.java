@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired; // 의존성 주�
 import org.springframework.stereotype.Service; // 서비스 계층을 나타내기 위한 import
 
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
+import java.util.Optional;
 
 // 게시글에 대한 비즈니스 로직을 처리하는 서비스 클래스
 @Service
@@ -26,4 +27,12 @@ public class PostService {
     public void deletePost(Long postId) {
         postRepository.deleteById(postId); // 게시글을 ID로 삭제
     }
+
+    // 특정 게시글을 조회하는 메소드
+    public Post getPostById(Long id) {
+        Optional<Post> optionalPost = postRepository.findById(id); // ID로 게시글 검색
+        return optionalPost.orElse(null); // 게시글이 존재하면 반환, 없으면 null 반환
+    }
+
+
 }
