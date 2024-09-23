@@ -47,6 +47,10 @@ const Home = () => {
     axios.get(url).then((res) => setProducts(res.data));
   };
 
+  const handleViewAll = () => {
+    axios.get("/api/products").then((res) => setProducts(res.data)); // 전체 상품 조회
+  };
+
   return (
     <div>
       <header>
@@ -125,7 +129,8 @@ const Home = () => {
                 </ul>
               )}
             </li>
-            <li onClick={() => handleCategoryClick("new")}>신상품</li>{" "}
+            <li onClick={() => handleCategoryClick("new")} style={{ marginRight: "20px" }}>신상품</li>
+            <li onClick={handleViewAll} style={{ marginRight: "20px" }}>전체상품</li>
           </ul>
         </nav>
       </header>
