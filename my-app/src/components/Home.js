@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../styles/Home.css"; // 스타일 경로
 
 const Home = () => {
-  const [jwt, setJwt] = useState(null); // 초기값 null로 설정
+  const [jwt, setJwt] = useState(null);
   const [username, setUsername] = useState("");
   const [products, setProducts] = useState([]);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const navigate = useNavigate();
 
-  // 상품 목록을 가져오기 위한 useEffect
   useEffect(() => {
     axios.get("/api/products").then((res) => setProducts(res.data));
   }, []);
 
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt");
-    setJwt(storedJwt); // jwt 상태 업데이트
+    setJwt(storedJwt);
 
     if (storedJwt) {
       try {
-        // JWT가 존재할 경우
-        const payload = storedJwt.split(".")[1]; // payload 추출
-        const decodedPayload = JSON.parse(atob(payload)); // Base64 디코딩
+        const payload = storedJwt.split(".")[1];
+        const decodedPayload = JSON.parse(atob(payload));
 
         if (decodedPayload && decodedPayload.username) {
-          setUsername(decodedPayload.username); // username 설정
+          setUsername(decodedPayload.username);
         } else {
           console.error("username not found in payload:", decodedPayload);
         }
@@ -48,11 +47,10 @@ const Home = () => {
   };
 
   const handleViewAll = () => {
-    axios.get("/api/products").then((res) => setProducts(res.data)); // 전체 상품 조회
+    axios.get("/api/products").then((res) => setProducts(res.data));
   };
 
   const openChat = () => {
-    // 새 창으로 Chat.js를 열고 크기 지정
     window.open(
       "/chat",
       "ChatWindow",
@@ -63,72 +61,67 @@ const Home = () => {
   return (
     <div>
       <header>
-        <h1 style={{ textAlign: "center" }}>쇼핑몰</h1>
-        <nav
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ display: "flex", gap: "10px" }}> {/* 두 버튼 사이에 약간의 간격 추가 */}
-            <button onClick={() => navigate("/board")}>게시판</button>
-            <button onClick={openChat}>스토어챗</button> {/* 스토어챗 버튼 추가 */}
+        <h1>쇼핑몰</h1>
+        <nav className="nav-container">
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button onClick={() => navigate("/board")} className="button">
+              게시판
+            </button>
+            <button onClick={openChat} className="button">
+              스토어챗
+            </button>
           </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            {jwt ? ( // JWT가 존재할 경우
+            {jwt ? (
               <>
                 <span>안녕하세요, {username}</span>
                 <button
                   onClick={() => navigate("/upload")}
+                  className="button"
                   style={{ marginLeft: "10px" }}
                 >
                   상품 등록
-                </button>{" "}
-                <button onClick={handleLogout} style={{ marginLeft: "10px" }}>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="button"
+                  style={{ marginLeft: "10px" }}
+                >
                   로그아웃
-                </button>{" "}
+                </button>
               </>
             ) : (
-              // JWT가 없을 경우
               <>
                 <button
                   onClick={() => navigate("/login")}
+                  className="button"
                   style={{ marginLeft: "10px" }}
                 >
                   로그인
-                </button>{" "}
+                </button>
                 <button
                   onClick={() => navigate("/register")}
+                  className="button"
                   style={{ marginLeft: "10px" }}
                 >
                   회원가입
-                </button>{" "}
+                </button>
               </>
             )}
           </div>
         </nav>
-        <nav style={{ backgroundColor: "#87CEEB", padding: "10px" }}>
-          <ul style={{ display: "flex", listStyleType: "none", padding: 0 }}>
+        <nav className="nav-container" style={{ backgroundColor: "#87CEEB", padding: "10px" }}>
+          <ul className="nav-list">
             <li
               onMouseEnter={() => setHoveredCategory("category")}
               onMouseLeave={() => setHoveredCategory(null)}
-              style={{ position: "relative", marginRight: "20px" }}
+              className="nav-list-item"
             >
               카테고리
               {hoveredCategory === "category" && (
-                <ul
-                  style={{
-                    position: "absolute",
-                    backgroundColor: "green",
-                    listStyleType: "none",
-                    padding: "10px",
-                    minWidth: "120px",
-                  }}
-                >
-                  <li onClick={() => handleCategoryClick("top")}>상의</li>{" "}
-                  <li onClick={() => handleCategoryClick("bottom")}>하의</li>{" "}
+                <ul className="dropdown-menu">
+                  <li onClick={() => handleCategoryClick("top")}>상의</li>
+                  <li onClick={() => handleCategoryClick("bottom")}>하의</li>
                   <li>
                     <a
                       href="https://namu.wiki/w/%EA%B9%80%EC%A0%95%EC%9D%80"
@@ -136,18 +129,21 @@ const Home = () => {
                       rel="noopener noreferrer"
                     >
                       공산주의
-                    </a>{" "}
+                    </a>
                   </li>
                 </ul>
               )}
             </li>
             <li
               onClick={() => handleCategoryClick("new")}
-              style={{ marginRight: "20px" }}
+              className="nav-list-item"
             >
               신상품
             </li>
-            <li onClick={handleViewAll} style={{ marginRight: "20px" }}>
+            <li
+              onClick={handleViewAll}
+              className="nav-list-item"
+            >
               전체상품
             </li>
           </ul>
@@ -155,27 +151,16 @@ const Home = () => {
       </header>
 
       <div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "20px",
-          }}
-        >
+        <div className="grid-container">
           {products.map((product) => (
             <div
               key={product.id}
               onClick={() => navigate(`/detail/${product.id}`)}
+              className="grid-item"
             >
               <img
                 src={product.imagePath}
                 alt={product.name}
-                style={{
-                  cursor: "pointer",
-                  width: "280px",
-                  height: "280px",
-                  objectFit: "cover",
-                }}
               />
               <h3>{product.name}</h3>
               <p>{product.price}원</p>

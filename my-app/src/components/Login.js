@@ -1,39 +1,46 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios'; 
+import '../styles/Login.css'; // Login.css 경로를 설정
 
 const Login = () => {
-  const [username, setUsername] = useState(''); // 사용자 ID 상태 초기화
-  const [password, setPassword] = useState(''); // 사용자 비밀번호 상태 초기화
-  const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 생성
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = () => {    
-    axios.post('/api/users/login', { username, password }) // username으로 변경
-      .then(res => {        
-        localStorage.setItem('jwt', res.data.token); // JWT 저장
-        navigate('/'); // 홈으로 이동
+  const handleLogin = () => {
+    axios.post('/api/users/login', { username, password })
+      .then(res => {
+        localStorage.setItem('jwt', res.data.token);
+        navigate('/');
       })
-      .catch(err => {        
-        alert(err.response.data.message); // 에러 메시지 알림
+      .catch(err => {
+        alert(err.response.data.message);
       });
   };
 
   return (
-    <div>
-      <input 
-        type="text" 
-        placeholder="아이디" 
-        value={username} 
-        onChange={e => setUsername(e.target.value)} // 입력값 변경 시 상태 업데이트
-      />
-      <input 
-        type="password" 
-        placeholder="비밀번호" 
-        value={password} 
-        onChange={e => setPassword(e.target.value)} // 입력값 변경 시 상태 업데이트
-      />
-      <button onClick={handleLogin}>로그인</button>
-      <button onClick={() => navigate('/register')}>회원가입</button> 
+    <div className="login-container">
+      <div className="input-container">
+        <input
+          className="login-input"
+          type="text"
+          placeholder="아이디"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+      </div>
+      <div className="input-container">
+        <input
+          className="login-input"
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </div>
+      <button className="login-button" onClick={handleLogin}>로그인</button>
+      <button className="register-button2" onClick={() => navigate('/register')}>회원가입</button>
     </div>
   );
 };

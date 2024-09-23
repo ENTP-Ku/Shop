@@ -1,46 +1,45 @@
-import React, { useState, useEffect } from "react"; // React와 useState, useEffect 훅을 import합니다.
-import { useNavigate } from "react-router-dom"; // 페이지 이동을 위해 useNavigate 훅을 import합니다.
-import axios from "axios"; // HTTP 요청을 처리하기 위해 axios 라이브러리를 import합니다.
+import React, { useState, useEffect } from "react"; 
+import { useNavigate } from "react-router-dom"; 
+import axios from "axios"; 
+import '../styles/Board.css'; // Board.css 경로를 설정
 
 const Board = () => {
-  const navigate = useNavigate(); // useNavigate를 호출하여 페이지 이동 기능을 가져옵니다.
-  const [posts, setPosts] = useState([]); // 게시글 목록을 저장할 상태 변수를 선언합니다. 초기값은 빈 배열입니다.
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
 
-  // 컴포넌트가 처음 마운트될 때 실행되는 useEffect 훅
   useEffect(() => {
-    // '/api/board' API 엔드포인트로 GET 요청을 보내 게시글 데이터를 가져옵니다.
-    axios
-      .get("/api/posts")
-      .then((response) => {
-        // 요청이 성공하면 응답 데이터(response.data)를 posts 상태에 저장합니다.
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        // 요청이 실패하면 콘솔에 에러 메시지를 출력하여 문제를 파악합니다.
-        console.error("Error fetching board posts:", error);
-      });
-  }, []); // 빈 배열을 의존성으로 설정하여 컴포넌트가 처음 마운트될 때만 실행되도록 합니다.
+    axios.get('/api/posts')
+        .then(response => {
+            // 게시글을 최근 날짜 순으로 정렬합니다.
+            const sortedPosts = response.data.sort((a, b) => new Date(b.postData) - new Date(a.postData));
+            setPosts(sortedPosts);
+        })
+        .catch(error => {
+            console.error('Error fetching board posts:', error);
+        });
+}, []);
 
-    // 토큰 존재 여부 확인
-    const jwt = localStorage.getItem("jwt"); // 또는 상태 관리 라이브러리 사용
-
+  const jwt = localStorage.getItem("jwt");
 
   return (
-    <div>
-      <h1>게시판</h1> {/* 게시판 제목을 표시하는 h1 요소입니다. */}
-      {/* 토큰이 존재하는 경우에만 글쓰기 버튼 표시 */}
+    <div className="board-container">
+      <h1 className="board-title">게시판</h1>
       {jwt && (
-        <button onClick={() => navigate("/write")}>글쓰기</button>
+        <button className="write-button" onClick={() => navigate("/write")}>
+          글쓰기
+        </button>
       )}
-      {/* 글쓰기 버튼 클릭 시 '/write' 경로로 이동 */}
-      <ul>
+      <ul className="post-list">
         {posts.map((post, index) => {
-          console.log(post); // 각 게시글의 데이터를 확인합니다.
           return (
-            <li key={index} onClick={() => navigate(`/boardDetail/${post.id}`)}>
-              <h3>{post.postTitle}</h3>
-              <p>{post.postData}</p>
-              <p>작성자: {post.postId}</p>
+            <li
+              key={index}
+              className="post-item"
+              onClick={() => navigate(`/boardDetail/${post.id}`)}
+            >
+              <h3 className="post-title">{post.postTitle}</h3>
+              <p className="post-author">작성자: {post.postId}</p>
+              <p className="post-data">{post.postData}</p>
             </li>
           );
         })}
@@ -49,4 +48,4 @@ const Board = () => {
   );
 };
 
-export default Board; // Board 컴포넌트를 다른 파일에서 사용할 수 있도록 export합니다.
+export default Board;
