@@ -9,7 +9,7 @@ const Board = () => {
     // 컴포넌트가 처음 마운트될 때 실행되는 useEffect 훅
     useEffect(() => {
         // '/api/board' API 엔드포인트로 GET 요청을 보내 게시글 데이터를 가져옵니다.
-        axios.get('/api/board')
+        axios.get('/api/posts')
             .then(response => {
                 // 요청이 성공하면 응답 데이터(response.data)를 posts 상태에 저장합니다.
                 setPosts(response.data);
