@@ -24,10 +24,14 @@ public class ProductService {
         return productRepository.findTop5ByOrderByUploadDataDesc(); // 최근 업로드된 5개 제품 반환
     }
 
-    // 특정 종류의 제품을 조회하는 메소드
-    public List<Product> getProductsByKind(String kind) {
-        return productRepository.findByKind(kind); // 주어진 종류에 해당하는 제품 반환
+    public Product getProductById(String id) {
+        Long longId = Long.valueOf(id); // String을 Long으로 변환
+        return productRepository.findById(longId).orElse(null);
     }
+
+
+
+
 
  // 클래스의 필드로 정의
     private final String uploadDir = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images"; // 이미지 저장 경로 설정
