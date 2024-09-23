@@ -10,7 +10,7 @@ const BoardDetail = () => {
     // 컴포넌트가 처음 마운트될 때 실행되는 useEffect 훅
     useEffect(() => {
         // 해당 ID에 대한 게시글 정보를 가져오기 위해 GET 요청을 보냅니다.
-        axios.get(`/api/board/${id}`)
+        axios.get(`/api/posts/${id}`)
             .then(response => {
                 // 요청이 성공하면 응답 데이터(response.data)를 post 상태에 저장합니다.
                 setPost(response.data);
@@ -25,7 +25,7 @@ const BoardDetail = () => {
     const handleDelete = async () => {
         try {
             // 해당 게시글을 삭제하기 위해 DELETE 요청을 보냅니다.
-            await axios.delete(`/api/board/${id}`);
+            await axios.delete(`/api/posts/${id}`);
             alert('게시물이 삭제되었습니다.'); // 삭제 성공 메시지를 표시합니다.
             navigate('/board'); // 게시판 목록으로 이동합니다.
         } catch (error) {
@@ -39,9 +39,10 @@ const BoardDetail = () => {
 
     return (
         <div>
-            <h1>{post.title}</h1> {/* 게시글 제목을 표시합니다. */}
-            <p>{post.content}</p> {/* 게시글 내용을 표시합니다. */}
-            <p>작성자: {post.writer}</p> {/* 게시글 작성자를 표시합니다. */}
+            <h1>{post.postTitle}</h1> {/* 게시글 제목을 표시합니다. */}
+            <p>{post.postDetail}</p> {/* 게시글 내용을 표시합니다. */}
+            <p>작성자: {post.postId}</p> {/* 게시글 작성자를 표시합니다. */}
+            <p>{post.postData}</p>
             <button onClick={handleDelete}>삭제</button> {/* 삭제 버튼 클릭 시 게시물 삭제 핸들러를 호출합니다. */}
         </div>
     );
