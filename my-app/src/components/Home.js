@@ -51,6 +51,15 @@ const Home = () => {
     axios.get("/api/products").then((res) => setProducts(res.data)); // 전체 상품 조회
   };
 
+  const openChat = () => {
+    // 새 창으로 Chat.js를 열고 크기 지정
+    window.open(
+      "/chat",
+      "ChatWindow",
+      "width=600,height=700,resizable=yes,scrollbars=yes"
+    );
+  };
+
   return (
     <div>
       <header>
@@ -63,7 +72,10 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          <button onClick={() => navigate("/board")}>게시판</button>{" "}
+          <div style={{ display: "flex", gap: "10px" }}> {/* 두 버튼 사이에 약간의 간격 추가 */}
+            <button onClick={() => navigate("/board")}>게시판</button>
+            <button onClick={openChat}>스토어챗</button> {/* 스토어챗 버튼 추가 */}
+          </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             {jwt ? ( // JWT가 존재할 경우
               <>
@@ -129,8 +141,15 @@ const Home = () => {
                 </ul>
               )}
             </li>
-            <li onClick={() => handleCategoryClick("new")} style={{ marginRight: "20px" }}>신상품</li>
-            <li onClick={handleViewAll} style={{ marginRight: "20px" }}>전체상품</li>
+            <li
+              onClick={() => handleCategoryClick("new")}
+              style={{ marginRight: "20px" }}
+            >
+              신상품
+            </li>
+            <li onClick={handleViewAll} style={{ marginRight: "20px" }}>
+              전체상품
+            </li>
           </ul>
         </nav>
       </header>
