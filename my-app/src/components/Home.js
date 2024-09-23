@@ -9,7 +9,6 @@ const Home = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const navigate = useNavigate();
 
-
   // 상품 목록을 가져오기 위한 useEffect
   useEffect(() => {
     axios.get("/api/products").then((res) => setProducts(res.data));
@@ -18,13 +17,13 @@ const Home = () => {
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt");
     setJwt(storedJwt); // jwt 상태 업데이트
-  
+
     if (storedJwt) {
       try {
         // JWT가 존재할 경우
         const payload = storedJwt.split(".")[1]; // payload 추출
         const decodedPayload = JSON.parse(atob(payload)); // Base64 디코딩
-  
+
         if (decodedPayload && decodedPayload.username) {
           setUsername(decodedPayload.username); // username 설정
         } else {
@@ -35,16 +34,16 @@ const Home = () => {
       }
     }
   }, []);
-  
+
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setJwt(null);
     setUsername("");
   };
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (kind) => {
     const url =
-      category === "new" ? "/api/products/new" : `/api/products/${category}`;
+      kind === "new" ? "/api/products/new" : `/api/products/kind/${kind}`;
     axios.get(url).then((res) => setProducts(res.data));
   };
 
