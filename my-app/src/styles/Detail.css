@@ -1,0 +1,71 @@
+/* 전체 레이아웃 설정 */
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* 상품 이미지 스타일 */
+  .product-image {
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+  }
+  
+  /* 상품 이름 스타일 */
+  .product-name {
+    font-size: 2em;
+    margin: 10px 0;
+  }
+  
+  /* 상품 가격 스타일 */
+  .product-price {
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  /* 상품 종류 스타일 */
+  .product-kind {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  /* 수량 입력 필드 스타일 */
+  .quantity-input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100px;
+  }
+  
+  /* 주문하기 버튼 스타일 */
+  .order-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .order-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* 삭제 버튼 스타일 */
+  .delete-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f;
+  }
+  

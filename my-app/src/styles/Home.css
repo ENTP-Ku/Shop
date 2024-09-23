@@ -1,0 +1,77 @@
+/* 전체 페이지 레이아웃 */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+  /* 네비게이션 카테고리 */
+  .nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .nav-list-item {
+    margin-right: 20px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    background-color: green;
+    list-style-type: none;
+    padding: 10px;
+    min-width: 120px;
+    display: none;
+  }
+  
+  .nav-list-item:hover .dropdown-menu {
+    display: block;
+  }
+  
+  /* 상품 리스트 */
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  
+  .grid-item {
+    cursor: pointer;
+  }
+  
+  .grid-item img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+  }
+  
+  /* 상품 카드 스타일 */
+  .grid-item h3 {
+    font-size: 18px;
+  }
+  
+  .grid-item p {
+    font-size: 16px;
+  }
+  
