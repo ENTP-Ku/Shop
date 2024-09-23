@@ -31,6 +31,10 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @GetMapping("/api/products/kind/{kind}")
+    public List<Product> getProductsByKind(@PathVariable String kind) {
+        return productService.getProductsByKind(kind);
+    }
 
 
 

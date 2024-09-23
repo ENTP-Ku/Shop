@@ -29,6 +29,9 @@ public class ProductService {
         return productRepository.findById(longId).orElse(null);
     }
 
+    public List<Product> getProductsByKind(String kind) {
+        return productRepository.findByKind(kind);
+    }
 
 
 
