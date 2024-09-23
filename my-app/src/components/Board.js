@@ -21,10 +21,17 @@ const Board = () => {
       });
   }, []); // 빈 배열을 의존성으로 설정하여 컴포넌트가 처음 마운트될 때만 실행되도록 합니다.
 
+    // 토큰 존재 여부 확인
+    const jwt = localStorage.getItem("jwt"); // 또는 상태 관리 라이브러리 사용
+
+
   return (
     <div>
       <h1>게시판</h1> {/* 게시판 제목을 표시하는 h1 요소입니다. */}
-      <button onClick={() => navigate("/write")}>글쓰기</button>{" "}
+      {/* 토큰이 존재하는 경우에만 글쓰기 버튼 표시 */}
+      {jwt && (
+        <button onClick={() => navigate("/write")}>글쓰기</button>
+      )}
       {/* 글쓰기 버튼 클릭 시 '/write' 경로로 이동 */}
       <ul>
         {posts.map((post, index) => {
