@@ -26,11 +26,14 @@ public class ProductController {
         return productService.getNewProducts(); // 제품 서비스에서 새로운 제품 조회
     }
 
-    // 특정 종류의 제품을 반환하는 GET 요청 처리
-    @GetMapping("/kind/{kind}")
-    public List<Product> getProductsByKind(@PathVariable String kind) {
-        return productService.getProductsByKind(kind); // 제품 서비스에서 종류에 따른 제품 조회
+    @GetMapping("/id/{id}")
+    public Product getProductById(@PathVariable String id) {
+        return productService.getProductById(id);
     }
+
+
+
+
 
     // 제품을 업로드하는 POST 요청 처리 (멀티파트 데이터 처리)
     @PostMapping(consumes = {"multipart/form-data"}) // 멀티파트 데이터 처리 명시

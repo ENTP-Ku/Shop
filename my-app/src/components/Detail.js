@@ -9,18 +9,16 @@ const Detail = () => {
 
     // 컴포넌트가 마운트되거나 ID가 변경될 때 실행되는 useEffect 훅
     useEffect(() => {
-        // 해당 ID에 대한 상품 정보를 가져오기 위해 GET 요청을 보냅니다.
-        axios.get(`/api/product/${id}`)
+        axios.get(`/api/products/id/${id}`)
             .then(response => {
-                // 요청이 성공하면 응답 데이터를 product 상태에 저장합니다.
+                console.log('Fetched product:', response.data); // 응답 데이터 확인
                 setProduct(response.data);
             })
             .catch(error => {
-                // 요청이 실패하면 콘솔에 에러 메시지를 출력합니다.
                 console.error('Error fetching product:', error);
             });
-    }, [id]); // id가 변경될 때마다 이 효과가 실행됩니다.
-
+    }, [id]);
+    
     // 상품 정보가 로드되기 전에는 로딩 메시지를 표시합니다.
     if (!product) return <div>Loading...</div>;
 
