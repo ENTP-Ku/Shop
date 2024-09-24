@@ -1,5 +1,7 @@
 package com.example.demo; // 패키지 선언
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
 import org.springframework.stereotype.Service; // 서비스 클래스를 나타내는 annotation
 
@@ -35,6 +37,13 @@ public class UserService {
         } else {
             return null; // 비밀번호가 일치하지 않으면 null 반환
         }
+    }
+
+    
+    // 사용자 ID로 사용자 조회 메서드
+    public User findById(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId); // ID로 사용자 검색
+        return userOptional.orElse(null); // 사용자가 존재하면 반환, 없으면 null 반환
     }
 
 }

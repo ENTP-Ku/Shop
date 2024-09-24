@@ -15,7 +15,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const storedJwt = localStorage.getItem("jwt");
+    const storedJwt = localStorage.getItem("jwt"); // 'jwt' 키로 토큰 가져오기
     setJwt(storedJwt);
 
     if (storedJwt) {
@@ -35,7 +35,7 @@ const Home = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("jwt"); // 토큰 삭제
     setJwt(null);
     setUsername("");
   };
@@ -51,10 +51,21 @@ const Home = () => {
   };
 
   const openChat = () => {
+    if (!jwt) return; // jwt가 없는 경우 함수를 중단
+
     window.open(
-      "/chat",
-      "ChatWindow",
+      "/chat", // 일반 사용자용 채팅 페이지
+      "UserChatWindow",
       "width=600,height=700,resizable=yes,scrollbars=yes"
+    );
+  };
+
+  const openCustomerChatManagement = () => {
+    // 고객채팅관리 페이지 열기
+    window.open(
+      "/chat/master", // 관리자용 고객채팅관리 페이지
+      "MasterChatWindow",
+      "width=800,height=900,resizable=yes,scrollbars=yes"
     );
   };
 
@@ -67,9 +78,21 @@ const Home = () => {
             <button onClick={() => navigate("/board")} className="button">
               게시판
             </button>
-            <button onClick={openChat} className="button">
-              스토어챗
-            </button>
+            {/* username이 'master'일 때 고객채팅관리 버튼, 그렇지 않으면 스토어챗 버튼 */}
+            {jwt && (
+              username === "master" ? (
+                <button
+                  onClick={openCustomerChatManagement}
+                  className="button"
+                >
+                  고객채팅관리
+                </button>
+              ) : (
+                <button onClick={openChat} className="button">
+                  스토어챗
+                </button>
+              )
+            )}
           </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             {jwt ? (
@@ -110,7 +133,10 @@ const Home = () => {
             )}
           </div>
         </nav>
-        <nav className="nav-container" style={{ backgroundColor: "#87CEEB", padding: "10px" }}>
+        <nav
+          className="nav-container"
+          style={{ backgroundColor: "#87CEEB", padding: "10px" }}
+        >
           <ul className="nav-list">
             <li
               onMouseEnter={() => setHoveredCategory("category")}
@@ -134,16 +160,10 @@ const Home = () => {
                 </ul>
               )}
             </li>
-            <li
-              onClick={() => handleCategoryClick("new")}
-              className="nav-list-item"
-            >
+            <li onClick={() => handleCategoryClick("new")} className="nav-list-item">
               신상품
             </li>
-            <li
-              onClick={handleViewAll}
-              className="nav-list-item"
-            >
+            <li onClick={handleViewAll} className="nav-list-item">
               전체상품
             </li>
           </ul>
@@ -158,10 +178,7 @@ const Home = () => {
               onClick={() => navigate(`/detail/${product.id}`)}
               className="grid-item"
             >
-              <img
-                src={product.imagePath}
-                alt={product.name}
-              />
+              <img src={product.imagePath} alt={product.name} />
               <h3>{product.name}</h3>
               <p>{product.price}원</p>
               <p>{product.kind}</p>
