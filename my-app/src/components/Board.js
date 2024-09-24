@@ -25,10 +25,16 @@ const Board = () => {
     <div className="board-container">
       <h1 className="board-title">게시판</h1>
       {jwt && (
-        <button className="write-button" onClick={() => navigate("/write")}>
+        <><button className="write-button" onClick={() => navigate("/write")}>
           글쓰기
-        </button>
-      )}
+        </button><button
+          className="write-back-button"
+          onClick={() => navigate(-1)}
+          aria-label="Go back to Home">
+            홈으로가기
+          </button></>)}
+
+      
       <ul className="post-list">
         {posts.map((post, index) => {
           return (
