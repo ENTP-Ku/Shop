@@ -4,10 +4,13 @@ import "../styles/Chat.css"; // CSS 파일 연결
 
 const socket = io.connect("http://localhost:4000");
 
-const Chat = ({ username }) => {
+const Chat = () => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
   const [isConnected, setIsConnected] = useState(socket.connected);
+  
+  // "관리자"와의 대화를 전제로 설정
+  const adminUser = "관리자";
 
   useEffect(() => {
     socket.on("connect", () => setIsConnected(true));
@@ -26,25 +29,25 @@ const Chat = ({ username }) => {
 
   const sendMessage = () => {
     if (message.trim()) {
-      socket.emit("message", { user: username, text: message });
+      socket.emit("message", { user: adminUser, text: message }); // 무조건 관리자와의 대화로 설정
       setMessage("");
     }
   };
 
   return (
     <div>
-      <h2>채팅</h2>
+      <h2>관리자와 채팅</h2>
       <div>{isConnected ? "서버 연결됨" : "서버 연결 끊김"}</div>
       
       {/* Chat window with messages */}
       <div className="chat-window">
         {chat.map((msg, idx) => (
-          <div key={idx} className={msg.user === "master" ? "admin-message" : ""}>
-            <strong>{msg.user === "master" ? "관리자" : msg.user}: </strong> {msg.text}
+          <div key={idx} className={msg.user === adminUser ? "admin-message" : ""}>
+            <strong>{msg.user}: </strong> {msg.text}
           </div>
         ))}
       </div>
-
+        
       {/* Input for chat message */}
       <input
         type="text"
