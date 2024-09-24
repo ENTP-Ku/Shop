@@ -67,9 +67,12 @@ const Home = () => {
             <button onClick={() => navigate("/board")} className="button">
               게시판
             </button>
-            <button onClick={openChat} className="button">
-              스토어챗
-            </button>
+            {/* jwt가 있으면 스토어챗 버튼 표시 */}
+            {jwt && (
+              <button onClick={openChat} className="button">
+                스토어챗
+              </button>
+            )}
           </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             {jwt ? (
