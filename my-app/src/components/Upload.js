@@ -34,34 +34,36 @@ const Upload = () => {
     };
 
     return (
-        <div className="upload-container"> {/* 클래스 추가 */}
-            <h1>상품 등록</h1>
-            <input 
-                type="text" 
-                placeholder="상품명" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-            />
-            <input 
-                type="number" 
-                placeholder="가격" 
-                value={price} 
-                onChange={(e) => setPrice(e.target.value)} 
-            />
-            <select 
-                value={kind} 
-                onChange={(e) => setKind(e.target.value)} 
-            >
-                <option value="">종류 선택</option>
-                <option value="top">상의</option>
-                <option value="bottom">하의</option>
-            </select>
-            <input 
-                type="file" 
-                onChange={(e) => setImage(e.target.files[0])} 
-            />
-            <button onClick={handleUpload}>등록</button>
-        </div>
+        <div className="upload-body"> {/* 전체 배경을 감싸는 컨테이너 */}
+            <div className="upload-container"> {/* 클래스 추가 */}
+                <h1>상품 등록</h1>
+                <input 
+                    type="text" 
+                    placeholder="상품명" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                />
+                <input 
+                    type="number" 
+                    placeholder="가격" 
+                    value={price} 
+                    onChange={(e) => setPrice(e.target.value)} 
+                />
+                <select 
+                    value={kind} 
+                    onChange={(e) => setKind(e.target.value)} 
+                >
+                    <option value="">종류 선택</option>
+                    <option value="top">상의</option>
+                    <option value="bottom">하의</option>
+                </select>
+                <input 
+                    type="file" 
+                    onChange={(e) => setImage(e.target.files[0])} 
+                />
+                <button onClick={handleUpload}>등록</button>
+            </div>
+        </div>    
     );
 };
 
