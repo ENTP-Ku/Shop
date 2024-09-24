@@ -67,9 +67,24 @@
     transition: background-color 0.3s ease-in-out;
     text-align: center;
   }
+    .submit-button{
+      width: 120px;
+      padding: 12px;
+      margin: 10px;
+      background-color: #3e523d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      text-align: center;
+    }
+  
+ 
   
   /* 버튼 호버 상태 */
-  .button:hover {
+  .submit-button {
     background-color: #2d3b2a;
   }
 
