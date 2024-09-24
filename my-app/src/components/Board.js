@@ -23,7 +23,7 @@ const Board = () => {
 
   return (
     <div className="board-container">
-      <h1 className="board-title">게시판</h1>
+      <h1 className="board-title">게시판목록</h1>
       {jwt && (
         <button className="write-button" onClick={() => navigate("/write")}>
           글쓰기
