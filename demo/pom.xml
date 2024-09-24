@@ -77,14 +77,22 @@
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
+			
 		</dependency>
-		
-		<!-- Socket.IO 서버 라이브러리 -->
-		<dependency>
-			<groupId>com.corundumstudio.socketio</groupId>
-			<artifactId>netty-socketio</artifactId>
-			<version>1.7.18</version> <!-- 최신 버전 확인 가능 -->
-		</dependency>
+		    <!-- Spring WebSocket -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+        <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.1.77.Final</version> <!-- 최신 버전을 확인하여 적절히 변경하세요. -->
+    </dependency>
+
+
+
+
 	</dependencies>
 
 	<build>
