@@ -84,6 +84,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
+        <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.1.77.Final</version> <!-- 최신 버전을 확인하여 적절히 변경하세요. -->
+    </dependency>
+
 
 
 
