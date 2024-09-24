@@ -39,7 +39,7 @@ public class NettyServerConfig {
             System.out.println("Netty server started on port 4000"); // 서버 시작 메시지를 콘솔에 출력
             
             // 채널이 닫힐 때까지 대기
-            f.channel().closeFuture().sync(); // 클라이언트의 연결이 종료될 때까지 대기
+//            f.channel().closeFuture().sync(); // 클라이언트의 연결이 종료될 때까지 대기
         } finally {
             // 서버가 종료될 때, 이벤트 루프 그룹을 안전하게 종료
             workerGroup.shutdownGracefully(); // 워커 그룹을 종료하여 자원을 해제
