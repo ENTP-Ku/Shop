@@ -1,76 +1,115 @@
 /* 전체 레이아웃 설정 */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px;
+}
+/* CSS for Detail Page */
 .detail-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-          background-color: #f0efeb4d;    /* 전체 배경색 */
-      margin: 0;    /* 기본 여백 제거 */
-      font-family: Arial, sans-serif;    /* 기본 글꼴 설정 */
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
 
+.detail-float-left {
+  flex: 1;
+  margin-right: 20px;
+}
 
-  }
-  
-  /* 상품 이미지 스타일 */
-  .product-image {
-    width: 400px;
-    height: 400px;
-    margin: 20px;
-  }
-  
-  /* 상품 이름 스타일 */
-  .product-name {
-    font-size: 2em;
-    margin: 10px 0;
-  }
-  
-  /* 상품 가격 스타일 */
-  .product-price {
-    font-size: 1.5em;
-    color: #333;
-  }
-  
-  /* 상품 종류 스타일 */
-  .product-kind {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-  }
-  
-  /* 수량 입력 필드 스타일 */
-  .quantity-input {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 100px;
-  }
-  
-  /* 주문하기 버튼 스타일 */
-  .order-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .order-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* 삭제 버튼 스타일 */
-  .delete-button {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .delete-button:hover {
-    background-color: #d32f2f;
-  }
-  
+.product-image {
+  width: 100%;
+  max-width: 400px; /* 이미지 크기 제한 */
+}
+
+.detail-float-right {
+  flex: 1;
+}
+
+.product-kind,
+.product-name,
+.product-price {
+  margin-bottom: 10px;
+}
+
+.product-kind {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: ;
+}
+
+.product-price {
+  font-size: 20px;
+  color: #0044ff;
+  margin-bottom: 20px;
+}
+
+.detail-options {
+  margin-bottom: 20px;
+}
+
+.label-text {
+  font-weight: bold;
+}
+
+.select-label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quantity-input {
+  width: 60px;
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.order-button,
+.cart-button {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.cart-button {
+  background-color: #fff;
+  border: 2px solid #333;
+  color: #333;
+}
+
+.order-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+}
+
+/* 상품 삭제 버튼 */
+.delete-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  visibility: visible;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}

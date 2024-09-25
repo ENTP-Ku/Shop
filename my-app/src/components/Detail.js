@@ -51,7 +51,7 @@ const Detail = () => {
 
         <div className="detail-float-right">
           <p className="product-kind">{product.kind}</p>
-          <h1 className="product-name">{product.name}</h1>
+          <h2 className="product-name">{product.name}</h2>
           <p className="product-price">{product.price} 원</p>
           <div className="detail-desc">
             {/* 상품 상세설명 입력 필요 시 이곳에 내용을 추가 */}
@@ -59,48 +59,61 @@ const Detail = () => {
           </div>
 
           {/* 상품 옵션 선택 */}
-          <div className="detail-options">
-            <span className="label-text">Size:</span>
-            <label htmlFor="size-select" className="select-label">
-              <select className="styled-drop-down" id="size-select" name="size-select">
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </label>
-          </div>
-
-          <div className="detail-options">
-            <span className="label-text">Color:</span>
-            <label htmlFor="color-select" className="select-label">
-              <select className="styled-drop-down" id="color-select" name="color-select">
-                <option value="Black">Black</option>
-                <option value="Red">Red</option>
-                <option value="Green">Green</option>
-                <option value="Yellow">Yellow</option>
-                <option value="Orange">Orange</option>
-              </select>
-            </label>
-          </div>
-
-          <div className="detail-options">
-            <div className="before-order">
-              <label htmlFor="product-quantity" className="product-quantity">
-                <span className="label-text">Quantity:</span>
-                <input type="number" className="quantity-input" placeholder="" />
+          <div className="detail-options-container">
+            {/* 옵션을 한 줄에 배치 */}
+            <div className="detail-options">
+              <span className="label-text">Size:</span>
+              <label htmlFor="size-select" className="select-label">
+                <select className="styled-drop-down" id="size-select" name="size-select">
+                  <option value="XS">XS</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
               </label>
-              <button className="order-button">주문</button>
-              <button className="cart">장바구니</button>
-            </div>
-          </div>
 
-          {canDelete && (
-            <button className="delete-button" onClick={handleDelete}>
-              상품삭제
-            </button>
-          )}
+              <span className="label-text">Color:</span>
+              <label htmlFor="color-select" className="select-label">
+                <select className="styled-drop-down" id="color-select" name="color-select">
+                  <option value="Black">Black</option>
+                  <option value="Red">Red</option>
+                  <option value="Green">Green</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Orange">Orange</option>
+                </select>
+              </label>
+
+            </div>
+
+            {/* 주문전, 수량선택 */}
+            <div className="before-order">
+
+              <label htmlFor="product-quantity" className="label-text">
+                Quantity:
+              </label>
+              <input type="number" id="product-quantity" className="quantity-input" min="1" defaultValue="1" />
+
+
+
+
+
+
+              {/* 장바구니, 주문 버튼 */}
+              <button className="cart-button">
+                장바구니 담기 - {product.Price * product.quantity}원 ({product.quantity}개)
+              </button>
+              <button className="order-button">구매하기</button>
+            </div>
+
+
+
+            {canDelete && (
+              <button className="delete-button" onClick={handleDelete}>
+                상품삭제
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </section>
