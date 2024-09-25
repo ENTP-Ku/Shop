@@ -39,7 +39,7 @@ const Detail = () => {
     product.upload_id === localStorage.getItem("userId");
 
   return (
-    <section className="main-content"> {/* 메인 콘텐츠 시작 */}
+    <section className="detail-body"> {/* 메인 콘텐츠 시작 */}
       <div className="detail-container">
         <div className="detail-float-left">
           <img
@@ -52,7 +52,9 @@ const Detail = () => {
         <div className="detail-float-right">
           <p className="product-kind">{product.kind}</p>
           <h2 className="product-name">{product.name}</h2>
+          <hr className="divider" />
           <p className="product-price">{product.price} 원</p>
+          <hr className="divider" />
           <div className="detail-desc">
             {/* 상품 상세설명 입력 필요 시 이곳에 내용을 추가 */}
             {/* <p className="description-text">{product.description}</p> */}
@@ -62,28 +64,31 @@ const Detail = () => {
           <div className="detail-options-container">
             {/* 옵션을 한 줄에 배치 */}
             <div className="detail-options">
-              <span className="label-text">Size:</span>
-              <label htmlFor="size-select" className="select-label">
-                <select className="styled-drop-down" id="size-select" name="size-select">
-                  <option value="XS">XS</option>
-                  <option value="S">S</option>
-                  <option value="M">M</option>
-                  <option value="L">L</option>
-                  <option value="XL">XL</option>
-                </select>
-              </label>
+              <div>
+                <span className="label-text">Size:</span>
+                <label htmlFor="size-select" className="select-label">
+                  <select className="styled-drop-down" id="size-select" name="size-select" defaultValue="선택">
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                  </select>
+                </label>
+              </div>
 
-              <span className="label-text">Color:</span>
-              <label htmlFor="color-select" className="select-label">
-                <select className="styled-drop-down" id="color-select" name="color-select">
-                  <option value="Black">Black</option>
-                  <option value="Red">Red</option>
-                  <option value="Green">Green</option>
-                  <option value="Yellow">Yellow</option>
-                  <option value="Orange">Orange</option>
-                </select>
-              </label>
-
+              <div>
+                <span className="label-text">Color:</span>
+                <label htmlFor="color-select" className="select-label">
+                  <select className="styled-drop-down" id="color-select" name="color-select">
+                    <option value="Black">Black</option>
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Orange">Orange</option>
+                  </select>
+                </label>
+              </div>
             </div>
 
             {/* 주문전, 수량선택 */}

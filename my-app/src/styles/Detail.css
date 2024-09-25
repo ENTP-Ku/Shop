@@ -1,17 +1,35 @@
+/* 전체 배경색 설정 */
+.detail-body {
+  background-color: #f0efeb4d;
+  /* 전체 배경색 */
+  margin: 0;
+  /* 기본 여백 제거 */
+  font-family: Arial, sans-serif;
+  /* 기본 글꼴 설정 */
+  min-height: 950px;
+
+  justify-content: center;
+  /* 수평 중앙 정렬 */
+  align-items: center;
+  /* 수직 중앙 정렬 */
+
+}
+
+
 /* 전체 레이아웃 설정 */
 .main-content {
-  display: flex;
+  display: block;
   justify-content: center;
-  align-items: flex-start;
   margin: 50px;
 }
+
 /* CSS for Detail Page */
 .detail-container {
   display: flex;
   justify-content: space-between;
   padding: 20px;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 900px;
 }
 
 .detail-float-left {
@@ -21,7 +39,8 @@
 
 .product-image {
   width: 100%;
-  max-width: 400px; /* 이미지 크기 제한 */
+  max-width: 400px;
+  /* 이미지 크기 제한 */
 }
 
 .detail-float-right {
@@ -31,7 +50,7 @@
 .product-kind,
 .product-name,
 .product-price {
-  margin-bottom: 10px;
+  margin: 15px 0px;
 }
 
 .product-kind {
@@ -42,56 +61,86 @@
 .product-name {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: ;
+  margin: 15px 0px;
+}
+
+/* 구분선 스타일 */
+.divider {
+  border: none;
+  border-top: 0.5px solid #ccc;
+  /* 연한 회색 구분선 */
+  margin: 2px;
 }
 
 .product-price {
   font-size: 20px;
   color: #0044ff;
-  margin-bottom: 20px;
-}
-
-.detail-options {
-  margin-bottom: 20px;
-}
-
-.label-text {
-  font-weight: bold;
-}
-
-.select-label {
-  display: block;
   margin-bottom: 10px;
 }
 
+.styled-drop-down,
 .quantity-input {
-  width: 60px;
-  margin-left: 10px;
-  padding: 5px;
+  max-width: 350px;
+  /* 너비 제한 */
+  padding: 8px;
+  /* 패딩을 동일하게 설정 */
+  font-size: 14px;
+  /* 폰트 크기 통일 */
   border: 1px solid #ccc;
-  border-radius: 4px;
+  /* 테두리 스타일 */
+  box-sizing: border-box;
+  /* 박스 크기 포함 */
 }
+
+.detail-options {
+  display: flex;
+  flex-direction: column;
+  /* 항목을 수직으로 나열 */
+  margin-bottom: 20px;
+  /* 각 옵션 사이에 여백 추가 */
+}
+
+.styled-drop-down {
+  margin-top: 20px;
+}
+
+.label-text {
+  min-width: 100px;
+  /* 레이블 최소 너비 설정 */
+  font-weight: bold;
+  margin-right: 10px;
+  align-items: center;
+}
+
+.quantity-input {
+  width: 50px;
+  padding: 8px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+
+}
+
 
 .order-button,
 .cart-button {
   display: block;
   width: 100%;
   padding: 15px 0;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 4px;
   margin-top: 10px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .cart-button {
   background-color: #fff;
-  border: 2px solid #333;
-  color: #333;
+  color: rgb(56, 55, 55);
+  border: 1px solid #000000;
+  margin-top: 50px;
 }
 
 .order-button {
-  background-color: #333;
+  background-color: #000000;
   color: #fff;
   border: none;
 }
