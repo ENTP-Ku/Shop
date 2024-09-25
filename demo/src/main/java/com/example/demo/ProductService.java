@@ -1,80 +1,79 @@
 package com.example.demo; // 패키지 선언
 
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
-import org.springframework.stereotype.Service; // 서비스 클래스를 정의하기 위한 import
+import org.springframework.stereotype.Service; // 서비스 계층을 나타내기 위한 import
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
+import java.util.Optional;
 
 // 제품 관련 비즈니스 로직을 처리하는 서비스 클래스
 @Service
 public class ProductService {
-    @Autowired
-    private ProductRepository productRepository; // ProductRepository에 대한 의존성 주입
 
-    // 모든 제품을 조회하는 메소드
-    public List<Product> getAllProducts() {
-        return productRepository.findAll(); // 리포지토리에서 모든 제품을 반환
-    }
+	@Autowired
+	private ProductRepository productRepository; // ProductRepository를 주입받아 데이터 액세스를 담당
 
-    // 최근 등록된 5개의 제품을 조회하는 메소드
-    public List<Product> getNewProducts() {
-        return productRepository.findTop5ByOrderByUploadDataDesc(); // 최근 업로드된 5개 제품 반환
-    }
+	// 모든 제품을 조회하는 메소드
+	public List<Product> getAllProducts() {
+		return productRepository.findAll(); // 모든 제품을 반환
+	}
 
-    public Product getProductById(String id) {
-        Long longId = Long.valueOf(id); // String을 Long으로 변환
-        return productRepository.findById(longId).orElse(null);
-    }
+	// 새로운 제품을 생성하는 메소드
+	public Product uploadProduct(String name, Integer price, String kind, List<MultipartFile> images) {
+		Product newProduct = new Product();
+		newProduct.setName(name);
+		newProduct.setPrice(price);
+		newProduct.setKind(kind);
 
-    public List<Product> getProductsByKind(String kind) {
-        return productRepository.findByKind(kind);
-    }
+		// 이미지 저장 경로 설정 (절대 경로)
+		String absolutePath = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images\\"; // 절대경로
 
+		// 이미지 저장 로직
+		for (MultipartFile image : images) {
+			if (!image.isEmpty()) {
+				try {
+					// 파일 이름 가져오기
+					String fileName = image.getOriginalFilename();
+					// 이미지 파일을 지정된 경로에 저장
+					File destinationFile = new File(absolutePath + fileName); // 절대 경로 사용
+					destinationFile.getParentFile().mkdirs(); // 부모 디렉토리 생성 (없을 경우)
+					image.transferTo(destinationFile); // 파일 전송
+					// 저장된 이미지 경로를 Product 객체에 설정 (여기서는 첫 번째 이미지 경로만 설정)
+					newProduct.setImagePath("images/" + fileName); // 저장된 이미지 경로
+				} catch (IOException e) {
+					e.printStackTrace(); // 예외 처리
+				}
+			}
+		}
 
+		return productRepository.save(newProduct); // 제품을 저장하고 반환
 
-
- // 클래스의 필드로 정의
-    private final String uploadDir = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images"; // 이미지 저장 경로 설정
-
-    public Product uploadProduct(String name, Integer price, String kind, MultipartFile image) {
-        // 파일 크기 검사
-        if (image.getSize() > 5 * 1024 * 1024) { // 5MB
-            throw new RuntimeException("파일 크기가 너무 큽니다.");
-        }
-
-        Product product = new Product();
-        product.setName(name);
-        product.setPrice(price);
-        product.setKind(kind);
-        
-        // 이미지 파일 처리
-        if (image != null && !image.isEmpty()) {
-            try {
-                // 이미지 파일을 저장할 경로 설정
-                String filePath = uploadDir + File.separator + image.getOriginalFilename();
-                
-                // 이미지 파일 저장
-                image.transferTo(new File(filePath));
-                
-                // 이미지 경로를 Product 객체에 설정 (웹에서 접근할 수 있는 경로)
-                product.setImagePath("/images/" + image.getOriginalFilename()); // 이 부분은 Product 클래스에 imagePath가 있어야 함
-            } catch (IOException e) {
-                e.printStackTrace();
-                // 적절한 예외 처리 추가 가능
-            }
-        }
-
-        return productRepository.save(product); // 제품을 리포지토리에 저장
-    }
+	}
 
 
 
+	// 특정 ID의 제품을 삭제하는 메소드
+	public void deleteProduct(Long productId) {
+		productRepository.deleteById(productId); // 제품을 ID로 삭제
+	}
 
-    // 특정 제품을 삭제하는 메소드
-    public void deleteProduct(Long productId) {
-        productRepository.deleteById(productId); // 제품 ID에 해당하는 제품 삭제
-    }
+	// 특정 ID의 제품을 조회하는 메소드
+	public Product getProductById(String id) {
+		Optional<Product> optionalProduct = productRepository.findById(Long.valueOf(id)); // ID로 제품 검색
+		return optionalProduct.orElse(null); // 제품이 존재하면 반환, 없으면 null 반환
+	}
+
+	// 특정 카테고리의 제품을 조회하는 메소드
+	public List<Product> getProductsByKind(String kind) {
+		return productRepository.findByKind(kind); // 카테고리로 제품 검색
+	}
+
+	// 최신 5개 제품을 조회하는 메소드
+	public List<Product> findTop5ByOrderByUploadDataDesc() {
+		return productRepository.findTop5ByOrderByUploadDataDesc(); // 최신 5개 제품 반환
+	}
 }
