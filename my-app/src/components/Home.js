@@ -51,24 +51,16 @@ const Home = () => {
   };
 
   const openChat = () => {
-    if (!jwt) return; // jwt가 없는 경우 함수를 중단
-
+    if (!jwt) return;
+  
+    // 일반 고객용 채팅방을 새로운 창에서 띄움
     window.open(
-      "/chat", // 일반 사용자용 채팅 페이지
-      "UserChatWindow",
-      "width=600,height=700,resizable=yes,scrollbars=yes"
+      "/chat", // '/chat' 경로로 이동
+      "ChatWindow", // 새 창 이름
+      "width=600,height=700,resizable=yes,scrollbars=yes" // 창의 크기와 옵션
     );
   };
-
-  const openCustomerChatManagement = () => {
-    // 고객채팅관리 페이지 열기
-    window.open(
-      "/chat/master", // 관리자용 고객채팅관리 페이지
-      "MasterChatWindow",
-      "width=800,height=900,resizable=yes,scrollbars=yes"
-    );
-  };
-
+    
   return (
     <div>
       <header>
@@ -78,20 +70,10 @@ const Home = () => {
             <button onClick={() => navigate("/board")} className="button">
               게시판
             </button>
-            {/* username이 'master'일 때 고객채팅관리 버튼, 그렇지 않으면 스토어챗 버튼 */}
             {jwt && (
-              username === "master" ? (
-                <button
-                  onClick={openCustomerChatManagement}
-                  className="button"
-                >
-                  고객채팅관리
-                </button>
-              ) : (
-                <button onClick={openChat} className="button">
-                  스토어챗
-                </button>
-              )
+              <button onClick={openChat} className="button">
+                스토어챗
+              </button>
             )}
           </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>

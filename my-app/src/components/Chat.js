@@ -1,68 +1,66 @@
-import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
-import "../styles/Chat.css"; // CSS 파일 연결
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import axios from 'axios';
 
-const socket = io.connect("http://localhost:4000");
+// 서버와의 연결 설정 (4000번 포트로 연결)
+const socket = io('http://localhost:4000');
 
 const Chat = () => {
-  const [message, setMessage] = useState("");
-  const [chat, setChat] = useState([]);
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  
-  // "관리자"와의 대화를 전제로 설정
-  const adminUser = "관리자";
+    const [message, setMessage] = useState('');
+    const [chat, setChat] = useState([]);
 
-  useEffect(() => {
-    socket.on("connect", () => setIsConnected(true));
-    socket.on("disconnect", () => setIsConnected(false));
+    // 서버에서 메시지를 수신할 때마다 실행
+    useEffect(() => {
+        socket.on('chat message', (msg) => {
+            setChat((prevChat) => [...prevChat, msg]);
+        });
 
-    socket.on("message", (msg) => {
-      setChat((prevChat) => [...prevChat, msg]);
-    });
+        return () => {
+            socket.off('chat message');
+        };
+    }, []);
 
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.disconnect();
+    // 메시지 전송 핸들러
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if (message.trim()) {
+            // 소켓을 통해 메시지를 서버로 전송
+            socket.emit('chat message', message);
+
+            // 메시지를 REST API로 백엔드에 저장 요청
+            axios.post('http://localhost:8080/chat/send', message)
+                .then(response => {
+                    console.log('Message saved:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error saving message:', error);
+                });
+
+            setMessage(''); // 입력 필드 초기화
+        }
     };
-  }, []);
 
-  const sendMessage = () => {
-    if (message.trim()) {
-      socket.emit("message", { user: adminUser, text: message }); // 무조건 관리자와의 대화로 설정
-      setMessage("");
-    }
-  };
-
-  return (
-    <div>
-      <h2>관리자와 채팅</h2>
-      <div>{isConnected ? "서버 연결됨" : "서버 연결 끊김"}</div>
-      
-      {/* Chat window with messages */}
-      <div className="chat-window">
-        {chat.map((msg, idx) => (
-          <div key={idx} className={msg.user === adminUser ? "admin-message" : ""}>
-            <strong>{msg.user}: </strong> {msg.text}
-          </div>
-        ))}
-      </div>
-        
-      {/* Input for chat message */}
-      <input
-        type="text"
-        className="chat-input"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="메시지 입력"
-      />
-      
-      {/* Send button */}
-      <button onClick={sendMessage} className="send-button">
-        전송
-      </button>
-    </div>
-  );
+    return (
+        <div>
+            <h1>채팅방</h1>
+            <div>
+                <ul>
+                    {chat.map((msg, index) => (
+                        <li key={index}>{msg}</li>
+                    ))}
+                </ul>
+            </div>
+            <form onSubmit={sendMessage}>
+                <input
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="메시지를 입력하세요..."
+                />
+                <button type="submit">전송</button>
+            </form>
+        </div>
+    );
 };
 
 export default Chat;
