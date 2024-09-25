@@ -49,7 +49,7 @@ const Chat = () => {
     e.preventDefault();
     if (message.trim()) {
       const formattedMessage = {
-        message: message,
+        message: `${username}: ${message}`, // username 접두사 추가
         username: username,
       };
 
