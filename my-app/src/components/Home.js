@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Home.css"; // 스타일 경로
+import { jwtDecode } from "jwt-decode"; // 명명된 내보내기로 가져오기
+
 
 const Home = () => {
   const [jwt, setJwt] = useState(null);
@@ -51,16 +53,29 @@ const Home = () => {
   };
 
   const openChat = () => {
-    if (!jwt) return;
+    const token = localStorage.getItem("jwt"); // JWT 토큰을 로컬 스토리지에서 가져옴
+    if (!token) return;
   
-    // 일반 고객용 채팅방을 새로운 창에서 띄움
-    window.open(
-      "/chat", // '/chat' 경로로 이동
-      "ChatWindow", // 새 창 이름
-      "width=600,height=700,resizable=yes,scrollbars=yes" // 창의 크기와 옵션
-    );
+    // JWT에서 username 추출
+    const { username } = jwtDecode(token); // jwtDecode 함수로 username을 추출
+  
+    if (username === "master") {
+      // username이 'master'라면 ChatML.js로 이동
+      window.open(
+        "/chatml", // '/chatml' 경로로 이동
+        "ChatMLWindow", // 새 창 이름
+        "width=600,height=700,resizable=yes,scrollbars=yes" // 창의 크기와 옵션
+      );
+    } else {
+      // 일반 고객용 채팅방을 새로운 창에서 띄움
+      window.open(
+        "/chat", // '/chat' 경로로 이동
+        "ChatWindow", // 새 창 이름
+        "width=600,height=700,resizable=yes,scrollbars=yes" // 창의 크기와 옵션
+      );
+    }
   };
-    
+      
   return (
     <div>
       <header>
