@@ -9,6 +9,7 @@ import Write from './components/Write';
 import BoardDetail from './components/BoardDetail';
 import Detail from './components/Detail';
 import Chat from './components/Chat'; // Chat 컴포넌트 추가
+import ChatML from './components/ChatML'; // ChatML 컴포넌트 추가
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/board" element={<Board />} />
         <Route path="/write" element={<Write />} />
-        <Route path="/boarddetail/:id" element={<BoardDetail />} />
+        <Route path="/boardDetail/:id" element={<BoardDetail />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/chat" element={<Chat />} /> {/* Chat 경로 추가 */}
+        <Route path="/chatML" element={<ChatML />} /> {/* ChatML 경로 추가 */}
       </Routes>
     </Router>
   );
