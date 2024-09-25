@@ -38,7 +38,7 @@
   
   /* 입력 필드에 포커스가 들어갔을 때 */
   .input-field:focus {
-    border-color: #5a6f8c;
+    border-color: #36854d;
     outline: none;
   }
   
@@ -58,7 +58,7 @@
     width: 120px;
     padding: 12px;
     margin: 10px;
-    background-color: #3e523d;
+    background-color: #308831;
     color: white;
     border: none;
     border-radius: 5px;
@@ -85,12 +85,12 @@
   
   /* 버튼 호버 상태 */
   .submit-button {
-    background-color: #2d3b2a;
+    background-color: #308831;
   }
 
   /* 뒤로가기 버튼 스타일 */
 .back-button {
-    background-color: #e74c3c;
+    background-color: #000000;
   }
   
   .back-button:hover {

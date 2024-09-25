@@ -10,7 +10,7 @@
   
   /* 게시판 제목 스타일 */
   .board-title {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 15px;
     
   }
@@ -42,10 +42,15 @@
     margin-right: 10px;
     transition: background-color 0.3s;
     display: inline-block;
+    float: right;
   }
   
   .write-button:hover {
     background-color: #45a049; /* 호버 시 색상 변경 */
+  }
+
+  .write-back-button:hover{
+    background-color: #8b887ab4;
   }
   
   /* 게시글 목록 스타일 */
@@ -104,17 +109,16 @@
     background-color: #4CAF50;
     border-radius: 5px; /* 버튼 모서리 둥글게 */
     color: black;
-    padding: 10px;
+    padding: 9px;
     border: none;
     transition: background-color 0.3s ease; /* 배경색 변경 시 부드럽게 */
   }
 
   .page-number{
-    padding: 6px;
+    padding: 10px;
     border-radius: 5px; /* 버튼 모서리 둥글게 */
     color: black;
-    margin: 2px 5px;
-    margin-right: 10px; /* 버튼 사이 여백 */
+    margin: 8px; /* 버튼 사이 여백 */
     border: none;
     transition: background-color 0.3s ease; /* 배경색 변경 시 부드럽게 */
   }
@@ -122,18 +126,15 @@
 /* 이전 / 다음 페이지 마우스호버 */
   .page-button:hover{
     background-color: #308831;
-    padding: 5px 10px;
+
   }
 
   .page-number:hover{
-    padding: 10px 20px;
     background-color: #b4b09fb4; /* 버튼 색상 */
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    transition: background-color 0.4s;
   }
 
 
