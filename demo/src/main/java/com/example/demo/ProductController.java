@@ -1,4 +1,4 @@
-package com.example.demo; // 패키지 선언
+package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
 import org.springframework.http.ResponseEntity; // HTTP 응답 객체를 다루기 위한 import
@@ -8,13 +8,17 @@ import org.springframework.web.multipart.MultipartFile; // 파일 업로드를 �
 import java.util.ArrayList;
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
 
-// 제품과 관련된 API 요청을 처리하는 컨트롤러 클래스
+
 @RestController
-@RequestMapping("/api/products") // "/api/products" 경로에 대한 요청을 처리
+@RequestMapping("/api/products")
 public class ProductController {
 
     @Autowired // ProductService 의존성 주입
     private ProductService productService; // ProductService 클래스의 인스턴스를 자동으로 주입
+
+
+    @Autowired
+    private ProductRepository productRepository; // ProductRepository 추가
 
     // 모든 제품을 반환하는 GET 요청 처리
     @GetMapping
@@ -26,6 +30,7 @@ public class ProductController {
     @GetMapping("/new")
     public List<Product> getNewProducts() {
         return productService.findTop5ByOrderByUploadDataDesc(); // 제품 서비스에서 새로운 제품 조회 후 반환
+
     }
 
     // 특정 ID로 제품을 조회하는 GET 요청 처리
@@ -55,6 +60,7 @@ public class ProductController {
         if (image1 != null) images.add(image1);
         if (image2 != null) images.add(image2);
         if (image3 != null) images.add(image3);
+
 
         // 새로운 제품 등록
         Product newProduct = productService.uploadProduct(name, price, kind, images);

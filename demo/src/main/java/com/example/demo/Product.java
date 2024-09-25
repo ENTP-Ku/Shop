@@ -24,4 +24,5 @@ public class Product {
 
     @ManyToOne // 다대일 관계 설정 (여러 제품이 하나의 사용자에 속할 수 있음)
     private User uploader; // 업로더 (사용자) 정보
+=======
 }

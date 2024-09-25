@@ -64,31 +64,30 @@ const Detail = () => {
           </div>
 
           {/* 상품 옵션 선택 */}
-          <div className="detail-options">
-            <span className="label-text">Size:</span>
-            <label htmlFor="size-select" className="select-label">
-              <select className="styled-drop-down" id="size-select" name="size-select">
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </label>
-          </div>
+          <div className="detail-options-container">
+            {/* 옵션을 한 줄에 배치 */}
+            <div className="detail-options">
+              <span className="label-text">Size:</span>
+              <label htmlFor="size-select" className="select-label">
+                <select className="styled-drop-down" id="size-select" name="size-select">
+                  <option value="XS">XS</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+              </label>
 
-          <div className="detail-options">
-            <span className="label-text">Color:</span>
-            <label htmlFor="color-select" className="select-label">
-              <select className="styled-drop-down" id="color-select" name="color-select">
-                <option value="Black">Black</option>
-                <option value="Red">Red</option>
-                <option value="Green">Green</option>
-                <option value="Yellow">Yellow</option>
-                <option value="Orange">Orange</option>
-              </select>
-            </label>
-          </div>
+              <span className="label-text">Color:</span>
+              <label htmlFor="color-select" className="select-label">
+                <select className="styled-drop-down" id="color-select" name="color-select">
+                  <option value="Black">Black</option>
+                  <option value="Red">Red</option>
+                  <option value="Green">Green</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Orange">Orange</option>
+                </select>
+              </label>
 
           <div className="detail-options">
             <div className="before-order"> {/* 주문 전 옵션 선택 영역 */}
@@ -99,7 +98,6 @@ const Detail = () => {
               <button className="order-button">주문</button> {/* 주문 버튼 */}
               <button className="cart">장바구니</button> {/* 장바구니 버튼 */}
             </div>
-          </div>
 
           {canDelete && ( // 삭제 가능 여부에 따라 삭제 버튼 표시
             <button className="delete-button" onClick={handleDelete}>

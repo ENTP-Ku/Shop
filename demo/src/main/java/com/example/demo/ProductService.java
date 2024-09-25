@@ -1,16 +1,16 @@
-package com.example.demo; // 패키지 선언
+package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
 import org.springframework.stereotype.Service; // 서비스 계층을 나타내기 위한 import
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
 import java.util.Optional;
 
-// 제품 관련 비즈니스 로직을 처리하는 서비스 클래스
+
 @Service
 public class ProductService {
 
