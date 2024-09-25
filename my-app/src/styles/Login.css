@@ -1,11 +1,34 @@
 /* 전체 레이아웃 설정 */
+.login_home{
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url("Login.css");
+  background-size: cover;
+  background-position: center;
+} 
+/* 로그린 배경 효과를 위해 가상 박스 만듬  */
+.login_home::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease-out;
+}
+
+
+
 .login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color:#f0efeb4d;
 }
 
 /* 입력 필드 스타일 */

@@ -4,6 +4,11 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+          background-color: #f0efeb4d;    /* 전체 배경색 */
+      margin: 0;    /* 기본 여백 제거 */
+      font-family: Arial, sans-serif;    /* 기본 글꼴 설정 */
+
+
   }
   
   /* 상품 이미지 스타일 */
