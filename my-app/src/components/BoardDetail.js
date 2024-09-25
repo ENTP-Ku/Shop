@@ -27,6 +27,11 @@ const BoardDetail = () => {
             alert('게시물 삭제에 실패했습니다.');
         }
     };
+    // 이전페이지 돌아가는코드입니다.
+    const handleGoBack = () => {
+        navigate(-1); // 이전 페이지로 이동
+    };
+    
 
     if (!post) return <div>Loading...</div>;
 
@@ -35,7 +40,8 @@ const BoardDetail = () => {
             <h1 className="board-detail-title">{post.postTitle}</h1> 
             <p className="board-detail-content">{post.postDetail}</p> 
             <p className="board-detail-meta">작성자: {post.postId} | 날짜: {post.postData}</p>
-            <button className="delete-button" onClick={handleDelete}>삭제</button> 
+            <button className="delete-button" onClick={handleDelete}>삭제</button>
+            <button className="back-button" onClick={handleGoBack}>뒤로가기</button> 
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; // React 및 useState, useEffect 훅을 import합니다.
 import { useNavigate } from 'react-router-dom'; // 페이지 내비게이션을 위한 useNavigate 훅을 import합니다.
 import axios from 'axios'; // HTTP 요청을 처리하기 위해 axios를 import합니다.
+import '../styles/Write.css'; // CSS 파일 연결
 
 const Write = () => {
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 생성
@@ -43,20 +44,25 @@ const Write = () => {
     };
 
     return (
-        <div>
-            <h1>글쓰기</h1>
-            <input 
+        <div className='form-container'>
+            <h1 className='form-title'>문의글 작성</h1>
+            
+            
+            <input className='input-field input-title'
                 type="text" 
-                placeholder="제목" 
+                placeholder="제목을 입력하세요" 
                 value={postTitle} 
                 onChange={(e) => setPostTitle(e.target.value)} // 입력값 변경 시 상태 업데이트
             />
-            <textarea 
-                placeholder="내용" 
+            <textarea className='input-field textarea-content'
+                placeholder="내용을 입력하세요" 
                 value={postDetail} 
                 onChange={(e) => setPostDetail(e.target.value)} // 입력값 변경 시 상태 업데이트
             />
-            <button onClick={handleSubmit}>등록</button>
+            <div className="button-group">
+            <button className='submit-button' onClick={handleSubmit}>등록</button>
+            <button className="button back-button" onClick={() => window.history.back()}>뒤로가기</button>
+            </div>
         </div>
     );
 };
