@@ -20,8 +20,6 @@ public class Product {
     private String name; // 제품명
     private Integer price; // 제품 가격
     private String kind; // 제품 종류 (예: 'top' 또는 'bottom')
-    private LocalDateTime uploadData; // 제품이 업로드된 날짜와 시간
+    private LocalDateTime uploadDate; // 제품이 업로드된 날짜와 시간 (필드 이름 수정)
     private Long uploadId; // 업로더의 사용자 ID
-
-    // 이미지 경로에 대한 getter 및 setter 메서드 (Lombok을 사용하여 자동 생성됨)
 }
