@@ -10,6 +10,7 @@ import BoardDetail from './components/BoardDetail';
 import Detail from './components/Detail';
 import Chat from './components/Chat'; // Chat 컴포넌트 추가
 
+
 function App() {
   return (
     <Router>

@@ -1,78 +1,261 @@
-/* 전체 레이아웃 설정 */
+/* 전체 레이아웃 및 페이지 스타일 */
 
-/* 로그린 배경 효과를 위해 가상 박스 만듬  */
-.login_home::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.5s ease-out;
-}
-
-
-
-.login-container {
-  background-image: url(/src/imgs/Loginbg.jpg);
-  position: fixed;
+/* 네비 스타일 */
+.navbar-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
-  background-color:#f0efeb4d;
+  height: 80px;
+  background-color: #696868;
 }
 
-/* 입력 필드 스타일 */
-.login-input {
-  width: 300px;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+.navbar-logo {
+  font-size: 2rem;
+  color: #eecfcf;
+  text-decoration: none;
 }
 
-/* 로그인 버튼 스타일 */
-.login-button {
-  width: 320px;
-  padding: 10px;
-  background-color: #4CAF50; /* 로그인 버튼 색상 */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
+.menu-icon {
+  display: none; /* 초기에는 숨김 */
 }
 
-/* 로그인 버튼 호버 시 색상 변경 */
-.login-button:hover {
-  background-color: #45a049; /* 호버 색상 */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  text-align: center;
 }
 
-/* 회원가입 버튼 스타일 */
-.register-button2 {
-  width: 320px;
-  padding: 10px;
-  background-color: #008CBA; /* 회원가입 버튼 색상 */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
+.nav-links {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
 }
 
-/* 회원가입 버튼 호버 시 색상 변경 */
-.register-button2:hover {
-  background-color: #007BB5; /* 호버 색상 */
+.nav-links-mobile {
+  display: none;
 }
 
-/* 입력 필드와 버튼 간의 간격 */
-.input-container {
+/* 네비 스타일 끝 */
+
+/* 메인 콘텐츠 스타일 */
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  flex: 1;
+}
+
+.welcome-section {
+  max-width: 500px;
+}
+
+.welcome-section h1 {
+  font-size: 3.5rem;
   margin-bottom: 20px;
+}
+
+.welcome-section p {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.learn-more-btn {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.learn-more-btn:hover {
+  background-color: #ff4c4c;
+}
+
+/* 로그인 폼 스타일 */
+.login-form-container {
+  background-color: rgba(153, 148, 148, 0.1);
+  padding: 60px;
+  border-radius: 20px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  background-color: #e6dada;
+  margin: auto; /* 중앙 정렬 */
+
+}
+
+.login-form-container h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.login-input {
+  width:100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgb(68, 67, 67);
+  font-size: 1rem;
+  margin-right: 30%;
+  
+ 
+}
+
+.login-input::placeholder {
+  color: #ccc;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to right, #ff6b6b, #ff3d3d);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(to right, #ff3d3d, #ff6b6b);
+}
+
+.option_field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  
+}
+
+.checkbox input[type="checkbox"] {
+  margin-right: 5px;
+
+}
+
+.forgot_pw {
+  color: #ff6b6b;
+  text-decoration: none;
+}
+
+.forgot_pw:hover {
+  text-decoration: underline;
+}
+
+.login_signup {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  padding: 3px;
+}
+
+.login_signup a {
+  color: #ff6b6b;
+  text-decoration: none;
+}
+
+.login_signup a:hover {
+  text-decoration: underline;
+}
+
+/* 푸터 스타일 */
+.footer {
+  background-color: #0a1630;
+  height: 300px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.footer p {
+  margin-bottom: 10px;
+  text-align: center;
+  color: white;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-left: 20px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+/* 반응형 웹 디자인 */
+@media screen and (max-width: 960px) {
+  .menu-icon {
+    display: block; /* 960px 이하에서 햄버거 아이콘 표시 */
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* 변경: 높이를 자동으로 설정 */
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu.active {
+    background: #333;
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+
+  .nav-links {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .nav-links-mobile {
+    display: block;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  /* 로그인 폼 고정 */
+  .content-wrapper {
+    flex-direction: column; /* 세로 방향으로 변경 */
+    padding: 20px;
+  }
+
+  .login-form-container {
+    max-width: 350px;
+    width: 100%;
+    margin: 0 auto; /* 중앙에 고정 */
+    margin-top: 10%;
+    margin-bottom: 10px;
+  }
 }
