@@ -21,8 +21,8 @@ const Upload = () => {
 
     const handleUpload = async () => {
         // 필드 유효성 검사
-        if (!name || !price || !kind || images.some(image => !image)) {
-            alert('모든 필드를 입력해주세요.');
+        if (!name || !price || !kind || images.every(image => !image)) {
+            alert('상품명, 가격, 카테고리를 입력하고, 최소 하나의 이미지를 첨부해주세요.');
             return;
         }
 
@@ -33,7 +33,9 @@ const Upload = () => {
         
         // 각 이미지를 개별적으로 formData에 추가
         images.forEach((image, index) => {
-            formData.append(`image${index + 1}`, image);  // `image1`, `image2`, `image3`로 저장
+            if (image) {
+                formData.append(`image${index + 1}`, image);  // `image1`, `image2`, `image3`로 저장
+            }
         });
 
         try {
