@@ -67,33 +67,39 @@ const Detail = () => {
           <div className="detail-options-container">
             {/* 옵션을 한 줄에 배치 */}
             <div className="detail-options">
-              <span className="label-text">Size:</span>
-              <label htmlFor="size-select" className="select-label">
-                <select className="styled-drop-down" id="size-select" name="size-select">
-                  <option value="XS">XS</option>
-                  <option value="S">S</option>
-                  <option value="M">M</option>
-                  <option value="L">L</option>
-                  <option value="XL">XL</option>
-                </select>
-              </label>
+              <div>
+                <span className="label-text">Size:</span>
+                <label htmlFor="size-select" className="select-label">
+                  <select className="styled-drop-down" id="size-select" name="size-select" defaultValue="선택">
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                  </select>
+                </label>
+              </div>
 
-              <span className="label-text">Color:</span>
-              <label htmlFor="color-select" className="select-label">
-                <select className="styled-drop-down" id="color-select" name="color-select">
-                  <option value="Black">Black</option>
-                  <option value="Red">Red</option>
-                  <option value="Green">Green</option>
-                  <option value="Yellow">Yellow</option>
-                  <option value="Orange">Orange</option>
-                </select>
-              </label>
+              <div>
+                <span className="label-text">Color:</span>
+                <label htmlFor="color-select" className="select-label">
+                  <select className="styled-drop-down" id="color-select" name="color-select">
+                    <option value="Black">Black</option>
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Orange">Orange</option>
+                  </select>
+                </label>
+              </div>
+            </div>
 
-          <div className="detail-options">
-            <div className="before-order"> {/* 주문 전 옵션 선택 영역 */}
-              <label htmlFor="product-quantity" className="product-quantity">
-                <span className="label-text">Quantity:</span>
-                <input type="number" className="quantity-input" placeholder="" /> {/* 수량 입력 필드 */}
+            {/* 주문전, 수량선택 */}
+            <div className="before-order">
+
+              <label htmlFor="product-quantity" className="label-text">
+                Quantity:
+
               </label>
               <button className="order-button">주문</button> {/* 주문 버튼 */}
               <button className="cart">장바구니</button> {/* 장바구니 버튼 */}
