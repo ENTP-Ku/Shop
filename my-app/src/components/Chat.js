@@ -1,66 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode"; // 명명된 내보내기로 가져오기
 
 // 서버와의 연결 설정 (4000번 포트로 연결)
-const socket = io('http://localhost:4000');
+const socket = io("http://localhost:4000");
 
 const Chat = () => {
-    const [message, setMessage] = useState('');
-    const [chat, setChat] = useState([]);
+  const [message, setMessage] = useState(""); // 입력된 메시지 상태
+  const [chat, setChat] = useState([]); // 전체 채팅 메시지 상태
 
-    // 서버에서 메시지를 수신할 때마다 실행
-    useEffect(() => {
-        socket.on('chat message', (msg) => {
-            setChat((prevChat) => [...prevChat, msg]);
+  // JWT 토큰에서 username 추출
+  const token = localStorage.getItem("jwt"); // JWT가 로컬 스토리지에 저장되어 있다고 가정
+  const username = token ? jwtDecode(token).username : "익명"; // username 추출 (없으면 '익명' 사용)
+
+  // 채팅 목록을 가져오는 함수
+  const fetchChats = async () => {
+    try {
+      const response = await axios.get("/chat/messages"); // API 호출
+      setChat(response.data); // 채팅 목록 상태 업데이트
+    } catch (error) {
+      console.error("채팅을 가져오는 중 오류 발생:", error);
+    }
+  };
+
+  // 컴포넌트가 마운트될 때 채팅 목록을 가져옴
+  useEffect(() => {
+    fetchChats(); // 초기 채팅 목록 가져오기
+
+    // 소켓에서 채팅 메시지를 수신
+    socket.on("chat message", (msg) => {
+      setChat((prevChat) => [...prevChat, msg]); // 새로운 메시지를 채팅 목록에 추가
+    });
+
+    return () => {
+      socket.off("chat message"); // 언마운트 시 이벤트 제거
+    };
+  }, []);
+
+  // 메시지 전송 핸들러
+  const sendMessage = (e) => {
+    e.preventDefault();
+    if (message.trim()) {
+      const formattedMessage = {
+        message: message,
+        username: username,
+      };
+
+      socket.emit("chat message", `${username}: ${message}`);
+
+      axios
+        .post("/chat/send", formattedMessage)
+        .then((response) => {
+          console.log("메시지가 저장되었습니다:", response.data);
+          fetchChats(); // 새 메시지가 저장된 후 채팅 목록 다시 가져오기
+        })
+        .catch((error) => {
+          console.error("메시지 저장 중 오류 발생:", error);
         });
 
-        return () => {
-            socket.off('chat message');
-        };
-    }, []);
+      setMessage(""); // 입력 필드 초기화
+    }
+  };
 
-    // 메시지 전송 핸들러
-    const sendMessage = (e) => {
-        e.preventDefault();
-        if (message.trim()) {
-            // 소켓을 통해 메시지를 서버로 전송
-            socket.emit('chat message', message);
-
-            // 메시지를 REST API로 백엔드에 저장 요청
-            axios.post('http://localhost:8080/chat/send', message)
-                .then(response => {
-                    console.log('Message saved:', response.data);
-                })
-                .catch(error => {
-                    console.error('Error saving message:', error);
-                });
-
-            setMessage(''); // 입력 필드 초기화
-        }
-    };
-
-    return (
-        <div>
-            <h1>채팅방</h1>
-            <div>
-                <ul>
-                    {chat.map((msg, index) => (
-                        <li key={index}>{msg}</li>
-                    ))}
-                </ul>
-            </div>
-            <form onSubmit={sendMessage}>
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="메시지를 입력하세요..."
-                />
-                <button type="submit">전송</button>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <h1>채팅방</h1>
+      <div>
+        <ul>
+          {/* 채팅 메시지 리스트 표시 */}
+          {chat.map((msg, index) => (
+            <li key={index}>
+              {msg.message}{" "}
+              <small>{new Date(msg.createdAt).toLocaleString()}</small>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <form onSubmit={sendMessage}>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="메시지를 입력하세요..."
+        />
+        <button type="submit">전송</button>
+      </form>
+    </div>
+  );
 };
 
 export default Chat;
