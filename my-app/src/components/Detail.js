@@ -114,8 +114,10 @@ const Detail = () => {
           </div>
         </div>
       </div>
+
       
     </section>
+    
   );
 };
 
