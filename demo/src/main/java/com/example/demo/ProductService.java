@@ -74,6 +74,6 @@ public class ProductService {
 
 	// 최신 5개 제품을 조회하는 메소드
 	public List<Product> findTop5ByOrderByUploadDataDesc() {
-		return productRepository.findTop5ByOrderByUploadDataDesc(); // 최신 5개 제품 반환
+		return productRepository.findTop5ByOrderByUploadDateDesc(); // 최신 5개 제품 반환
 	}
 }
