@@ -14,9 +14,10 @@ public class ChatController {
     private ChatService chatService;
 
     @PostMapping("/send")
-    public Chat sendMessage(@RequestBody String message) {
-        return chatService.saveMessage(message);
+    public Chat sendMessage(@RequestBody Chat chat) {
+        return chatService.saveMessage(chat.getMessage(), chat.getUsername());
     }
+
 
     @GetMapping("/messages")
     public List<Chat> getMessages() {

@@ -11,8 +11,8 @@ public class ChatService {
     @Autowired
     private ChatRepository chatRepository;
 
-    public Chat saveMessage(String message) {
-        Chat chat = new Chat(message);
+    public Chat saveMessage(String message, String username) {
+        Chat chat = new Chat(message, username);
         return chatRepository.save(chat);
     }
 
