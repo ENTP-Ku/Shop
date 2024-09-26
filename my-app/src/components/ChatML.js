@@ -3,8 +3,6 @@ import axios from "axios";
 
 const ChatML = () => {
   const [chats, setChats] = useState([]); // 사용자 목록과 최신 메시지
-  const [selectedUser, setSelectedUser] = useState(null); // 선택된 사용자
-  const [messages, setMessages] = useState([]); // 메시지 목록
 
   // 모든 사용자 목록과 최신 메시지를 가져오는 함수
   const fetchUsers = async () => {
@@ -16,21 +14,12 @@ const ChatML = () => {
     }
   };
 
-  // 특정 사용자와의 메시지를 가져오는 함수
-  const fetchMessages = async (username) => {
-    try {
-      const response = await axios.get(`/api/chat/messages/${username}`);
-      setMessages(response.data); // 메시지 목록 상태 업데이트
-    } catch (error) {
-      console.error("메시지를 가져오는 중 오류 발생:", error);
-    }
-  };
-
   // 사용자 클릭 핸들러
-  const handleUserClick = (username) => {
-    setSelectedUser(username); // 선택된 사용자 설정
-    fetchMessages(username); // 선택된 사용자와의 메시지 가져오기
-  };
+// 사용자 클릭 핸들러
+const handleUserClick = (username) => {
+  // 새로운 창에서 MChat으로 이동
+  window.open(`/mChat?username=${username}`, "_blank", "width=600,height=700,resizable=yes,scrollbars=yes");
+};
 
   // 컴포넌트가 마운트될 때 사용자 목록을 가져옴
   useEffect(() => {
@@ -51,19 +40,6 @@ const ChatML = () => {
           ))}
         </ul>
       </div>
-      {selectedUser && (
-        <div>
-          <h2>{selectedUser}와의 대화</h2>
-          <ul>
-            {messages.map((msg, index) => (
-              <li key={index}>
-                <strong>{msg.toUsername}</strong>: {msg.message}{" "}
-                <small>{new Date(msg.createdAt).toLocaleString()}</small>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };
