@@ -23,6 +23,9 @@ public class PostService {
         return postRepository.save(post); // 게시글을 저장하고 반환
     }
 
+    
+
+    
     // 특정 ID의 게시글을 삭제하는 메소드
     public void deletePost(Long postId) {
         postRepository.deleteById(postId); // 게시글을 ID로 삭제
