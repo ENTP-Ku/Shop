@@ -1,8 +1,8 @@
-
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import "../styles/Upload.css"; // CSS 파일 연결
+import "../styles/Detail.css"; // detail CSS 스타일시트 연결
 import { jwtDecode } from "jwt-decode"; // 명명된 내보내기로 가져오기
 
 const Upload = () => {
@@ -59,15 +59,57 @@ const getUserIdFromToken = () => {
   };
 
   return (
-    <div className="upload-body">
-      {" "}
-      {/* 전체 배경을 감싸는 컨테이너 */}
-      <div className="upload-container">
-        {" "}
+    <section className="upload-body">
+      {/* 네비게이션 시작 */}
+      <nav className="navbar">
+        <div className="navbar-container">
+          {/* 왼쪽 메뉴 */}
+          <ul className="navbar-menu">
+            <li>
+              <Link to="/products">제품</Link>
+            </li>
+            <li>
+              <Link to="/board">고객지원</Link>
+            </li>
+          </ul>
 
-        {/* 클래스 추가 */}
+          {/* 중앙 로고 */}
+          <div className="navbar-logo">
+            <Link to="/">Amor</Link>
+          </div>
+
+          {/* 오른쪽 메뉴 */}
+          <ul className="navbar-icons">
+            <li>
+              <Link to="/search">
+                <i className="fa fa-search"></i>
+              </Link>
+            </li>
+            <li>
+              <Link to="/cart">
+                <i className="fa fa-shopping-cart"></i>
+                <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/login">로그인</Link>
+            </li>
+            <li>
+              <Link to="/signup">회원가입</Link>
+            </li>
+            <li>
+              <Link to="/chat">채팅</Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {/* 전체 배경을 감싸는 컨테이너 */}
+      <div class="upload-body-container">
+          
+        <div className="upload-container">
         <h1>상품 등록</h1>
         <p>상품의 정보와 사진을 등록합니다</p>
+        
         <label htmlFor="title">상품명</label>
         <input
           type="text"
@@ -100,8 +142,8 @@ const getUserIdFromToken = () => {
         />
         <button onClick={handleUpload}>등록</button>
       </div>
-    </div>
+      </div>
+    </section>
   );
 };
-
 export default Upload; // Upload 컴포넌트 내보내기

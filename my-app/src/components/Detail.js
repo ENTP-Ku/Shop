@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react"; // React와 필요한 훅 임포트
-import { useParams, useNavigate, Link } from "react-router-dom"; // URL 파라미터와 내비게이션을 위한 훅 임포트
+import { useParams, useNavigate, Link} from "react-router-dom"; // URL 파라미터와 내비게이션을 위한 훅 임포트
 import axios from "axios"; // API 호출을 위한 axios 임포트
-import "../styles/Detail.css"; // CSS 스타일시트 연결
+import "../styles/Detail.css"; // detail CSS 스타일시트 연결
 
 const Detail = () => {
   const { id } = useParams(); // URL에서 제품 ID 추출
   const navigate = useNavigate(); // 내비게이션 훅 생성
   const [product, setProduct] = useState(null); // 제품 상태 관리 (초기값은 null)
  
-
   useEffect(() => {
     // 컴포넌트가 마운트되거나 id가 변경될 때 API 호출
     axios
@@ -46,16 +45,15 @@ const Detail = () => {
 
     return (
     <section className="detail-body"> {/* 메인 콘텐츠 시작 */}
-      {/* 네비게이션 시작 */}
-      <nav className="navbar">
+    <nav className="navbar"> {/* 네비게이션 시작 */}
       <div className="navbar-container">
         {/* 왼쪽 메뉴 */}
         <ul className="navbar-menu">
           <li>
-            <Link to="/products">product</Link>
+            <Link to="/products">제품</Link>
           </li>
           <li>
-            <Link to="/board">QnA</Link>
+            <Link to="/board">고객지원</Link>
           </li>        
         </ul>
 
@@ -71,11 +69,10 @@ const Detail = () => {
               <i className="fa fa-search"></i>
             </Link>
           </li>
-          
           <li>
             <Link to="/cart">
-            <i className="fa fa-shopping-cart"></i>
-              <span className="cart-count">{/*장바구니 내 수량과 연결*/}</span>
+              <i className="fa fa-shopping-cart"></i>
+              <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
             </Link>
           </li>
           <li>
@@ -85,23 +82,12 @@ const Detail = () => {
             <Link to="/signup">회원가입</Link>
           </li>
           <li>
-            <Link to="/board">chat</Link>
+            <Link to="/chat">채팅</Link>
           </li>
-          
         </ul>
       </div>
     </nav>
-      
 
-
-
-
-
-
-
-
-
-      
       <div className="detail-container"> {/* 상세 페이지 컨테이너 */}
         <div className="detail-float-left"> {/* 왼쪽에 제품 이미지 표시 */}
           <img

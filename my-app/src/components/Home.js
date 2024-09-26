@@ -4,7 +4,6 @@ import axios from "axios";
 import "../styles/Home.css"; // 스타일 경로
 import { jwtDecode } from "jwt-decode"; // 명명된 내보내기로 가져오기
 
-
 const Home = () => {
   const [jwt, setJwt] = useState(null);
   const [username, setUsername] = useState("");
