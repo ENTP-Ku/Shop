@@ -62,7 +62,7 @@ const Home = () => {
     if (username === "master") {
       // username이 'master'라면 ChatML.js로 이동
       window.open(
-        "/chatml", // '/chatml' 경로로 이동
+        "/chatML", // '/chatML' 경로로 이동
         "ChatMLWindow", // 새 창 이름
         "width=600,height=700,resizable=yes,scrollbars=yes" // 창의 크기와 옵션
       );

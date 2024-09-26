@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -63,6 +64,7 @@ const getUserIdFromToken = () => {
       {/* 전체 배경을 감싸는 컨테이너 */}
       <div className="upload-container">
         {" "}
+
         {/* 클래스 추가 */}
         <h1>상품 등록</h1>
         <p>상품의 정보와 사진을 등록합니다</p>
@@ -102,4 +104,4 @@ const getUserIdFromToken = () => {
   );
 };
 
-export default Upload;
+export default Upload; // Upload 컴포넌트 내보내기
