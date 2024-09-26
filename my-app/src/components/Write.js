@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'; // React 및 useState, useEf
 import { useNavigate } from 'react-router-dom'; // 페이지 내비게이션을 위한 useNavigate 훅을 import합니다.
 import axios from 'axios'; // HTTP 요청을 처리하기 위해 axios를 import합니다.
 import '../styles/Write.css'; // CSS 파일 연결
+import "../styles/Detail.css"; // detail CSS 스타일시트 연결
 
 const Write = () => {
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 생성
