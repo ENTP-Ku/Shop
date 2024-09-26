@@ -44,7 +44,7 @@ const Detail = () => {
         <div className="detail-float-left">
           <img
             className="product-image"
-            src={`http://localhost:8080${product.imagePath}`}
+            src={`${product.imagePath}`}
             alt={product.name}
           />
         </div>
