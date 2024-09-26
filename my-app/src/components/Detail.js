@@ -43,29 +43,30 @@ const Detail = () => {
     product.upload_id === localStorage.getItem("userId"); // 제품 업로드 ID가 현재 사용자 ID와 일치하는지 확인
 
   return (
-    <section className="main-content"> {/* 메인 콘텐츠 시작 */}
+    <section className="detail-body"> {/* 메인 콘텐츠 시작 */}
       <div className="detail-container"> {/* 상세 페이지 컨테이너 */}
         <div className="detail-float-left"> {/* 왼쪽에 제품 이미지 표시 */}
           <img
             className="product-image"
-            src={`http://localhost:8080${product.imagePath}`} // 제품 이미지 경로
-            alt={product.name} // 이미지 설명
+            src={`${product.imagePath}`}
+            alt={product.name}
           />
         </div>
 
         <div className="detail-float-right"> {/* 오른쪽에 제품 정보 표시 */}
           <p className="product-kind">{product.kind}</p> {/* 제품 종류 */}
           <h1 className="product-name">{product.name}</h1> {/* 제품 이름 */}
-          <p className="product-price">{product.price} 원</p> {/* 제품 가격 */}
           <p className="uploader">업로더: {product.uploader?.username}</p> {/* 업로더 정보 표시 */}
+          <hr className="divider" />
+          <p className="product-price">{product.price} 원</p> {/* 제품 가격 */}
+          
           <div className="detail-desc">
             {/* 상품 상세설명 입력 필요 시 이곳에 내용을 추가 */}
             {/* <p className="description-text">{product.description}</p> */}
           </div>
-
+          <hr className="divider" />
           {/* 상품 옵션 선택 */}
           <div className="detail-options-container">
-            {/* 옵션을 한 줄에 배치 */}
             <div className="detail-options">
               <div>
                 <span className="label-text">Size:</span>
@@ -96,23 +97,25 @@ const Detail = () => {
 
             {/* 주문전, 수량선택 */}
             <div className="before-order">
+              <div className="product-quantity">
+                <span className="label-text">Quantity:</span>
+                <input type="number" className="quantity-input" placeholder="1" min="1" />
+              </div>
+              <button className="cart-button">장바구니</button> {/* 장바구니 버튼 */}
+              <button className="order-button">구매하기</button> {/* 주문 버튼 */}
 
-              <label htmlFor="product-quantity" className="label-text">
-                Quantity:
-
-              </label>
-              <button className="order-button">주문</button> {/* 주문 버튼 */}
-              <button className="cart">장바구니</button> {/* 장바구니 버튼 */}
             </div>
 
-          {canDelete && ( // 삭제 가능 여부에 따라 삭제 버튼 표시
-            <button className="delete-button" onClick={handleDelete}>
-              상품삭제
-            </button>
-          )}
+            {canDelete && ( // 삭제 가능 여부에 따라 삭제 버튼 표시
+              <button className="delete-button" onClick={handleDelete}>
+                상품삭제
+              </button>
+            )}
+          </div>
         </div>
       </div>
-      </div>
+
+      
     </section>
     
   );
