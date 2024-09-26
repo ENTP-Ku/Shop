@@ -1,6 +1,8 @@
 package com.example.demo;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MasterChatRepository extends JpaRepository<MasterChat, Long> {
-    // 추가적인 쿼리 메소드가 필요하면 여기에 정의할 수 있습니다.
+    List<MasterChat> findByUsername(String username); // username으로 메시지를 찾는 메서드
 }

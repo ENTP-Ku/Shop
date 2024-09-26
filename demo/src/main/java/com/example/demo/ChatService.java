@@ -54,5 +54,11 @@ public class ChatService {
             }
         }
     }
+    
+    // 특정 사용자의 메시지를 가져오는 메서드
+    public List<Chat> getMessagesByUsername(String username) {
+        return chatRepository.findByUsername(username); // 주어진 username으로 메시지를 찾음
+    }
+
 
 }

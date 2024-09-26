@@ -44,8 +44,9 @@ const getUserIdFromToken = () => {
     formData.append("name", name);
     formData.append("price", price);
     formData.append("kind", kind);
-    formData.append("uploadId", userId); // 프론트에서 받아온 사용자 ID 추가
+    formData.append("uploaderId", userId); // 프론트에서 받아온 사용자 ID 추가
     formData.append("image", image); // 단일 이미지 추가
+    
 
     try {
       await axios.post("/api/products", formData, {

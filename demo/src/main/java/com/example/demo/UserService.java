@@ -40,10 +40,10 @@ public class UserService {
     }
 
     
-    // 사용자 ID로 사용자 조회 메서드
-    public User findById(Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId); // ID로 사용자 검색
-        return userOptional.orElse(null); // 사용자가 존재하면 반환, 없으면 null 반환
+ // UserService 클래스 내 메서드
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username); // 사용자 이름으로 사용자 검색
     }
+
 
 }

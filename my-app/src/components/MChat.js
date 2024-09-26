@@ -23,16 +23,21 @@ const MChat = () => {
     if (inputMessage.trim() === "") return; // 빈 메시지 전송 방지
 
     try {
-      await axios.post(`/api/chat/messages`, {
+      const response = await axios.post(`/api/chat/messages`, {
         username: username,
         message: inputMessage,
+        // createdAt 필드는 서버에서 자동으로 설정하므로 클라이언트에서 보내지 않음
       });
 
-      // 메시지 전송 후 입력창 비우기 및 메시지 목록 다시 가져오기
-      setInputMessage("");
-      fetchMessages(); // 최신 메시지 가져오기
+      if (response.status === 200) {
+        // 메시지 전송 후 입력창 비우기 및 메시지 목록 다시 가져오기
+        setInputMessage("");
+        fetchMessages(); // 최신 메시지 가져오기
+      } else {
+        console.error("메시지 전송 실패:", response.status);
+      }
     } catch (error) {
-      console.error("메시지 전송 중 오류 발생:", error);
+      console.error("메시지 전송 중 오류 발생:", error.response ? error.response.data : error.message);
     }
   };
 
@@ -46,7 +51,7 @@ const MChat = () => {
       <ul>
         {messages.map((msg, index) => (
           <li key={index}>
-            <strong>{msg.toUsername}</strong>: {msg.message}{" "}
+            <strong>{msg.username}</strong>: {msg.message}{" "}
             <small>{new Date(msg.createdAt).toLocaleString()}</small>
           </li>
         ))}

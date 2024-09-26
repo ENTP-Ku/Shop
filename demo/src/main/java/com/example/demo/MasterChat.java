@@ -8,7 +8,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Builder
 public class MasterChat {
     
     @Id
@@ -18,4 +17,8 @@ public class MasterChat {
     private String username;
     private String message;
     private String createdAt;
+    
+    // 기본 생성자 추가
+    public MasterChat() {}
+
 }
