@@ -111,13 +111,21 @@ Board.js로 이동
 
 백엔드:
 
-관리자 채팅
+관리자 채팅 목록
 백에서 db를 조작해야한다.
 chat 테이블에서 username칼럼을 같은 값끼리 묶는다
 각 묶음의 created_at값 1위를 선정하여 레코드를 내림차순 한다
 그 순서로 username을 나열하여 프론트로 전송한다
 
-
+관리자 채팅
+masterchat테이블의 칼럼: created_at, message, to_username
+created_at: 메세지 보낸 시간
+message: 보낸 메세지 내용
+to_username: 대화 상대 사용자 이름
+채팅방 리스트의 사용자 이름을 클릭하면 출력된 사용자 이름을 추출한다.
+추출값을 masterchat 테이블의 to_username칼럼과 일치하는 레코드들을 찾고 to_username값과 created_at값을 저장하고
+추출값을 chat 테이블의 username칼럼과 일치하는 레코드들을 찾고 username값, message값,  을 저장한다
+두 저장묶음의 created_at 값 순서대로 나열한다
 
 
 Mysql:
