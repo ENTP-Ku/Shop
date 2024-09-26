@@ -43,15 +43,18 @@ const Detail = () => {
     product.upload_id === localStorage.getItem("userId"); // 제품 업로드 ID가 현재 사용자 ID와 일치하는지 확인
 
   return (
+    
     <section className="detail-body"> {/* 메인 콘텐츠 시작 */}
       <div className="detail-container"> {/* 상세 페이지 컨테이너 */}
         <div className="detail-float-left"> {/* 왼쪽에 제품 이미지 표시 */}
+          
           <img
             className="product-image"
-            src={`${product.imagePath}`}
+            src={`http://localhost:8080/${product.imagePath}`} // 프록시 설정이 되어 있으면, localhost:8080으로 API 요청
             alt={product.name}
           />
         </div>
+        
 
         <div className="detail-float-right"> {/* 오른쪽에 제품 정보 표시 */}
           <p className="product-kind">{product.kind}</p> {/* 제품 종류 */}
