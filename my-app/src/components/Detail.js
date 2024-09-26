@@ -106,8 +106,8 @@ const Detail = () => {
         <div className="detail-float-left"> {/* 왼쪽에 제품 이미지 표시 */}
           <img
             className="product-image"
-            src={`http://localhost:8080${product.imagePath}`} // 제품 이미지 경로
-            alt={product.name} // 이미지 설명
+            src={`${product.imagePath}`}
+            alt={product.name}
           />
         </div>
 
@@ -172,7 +172,10 @@ const Detail = () => {
           </div>
         </div>
       </div>
+
+      
     </section>
+    
   );
 };
 
