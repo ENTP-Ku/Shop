@@ -56,7 +56,7 @@ const Detail = () => {
         <div className="detail-float-right"> {/* 오른쪽에 제품 정보 표시 */}
           <p className="product-kind">{product.kind}</p> {/* 제품 종류 */}
           <h1 className="product-name">{product.name}</h1> {/* 제품 이름 */}
-          <p className="uploader">업로더: {product.uploader?.username}</p> {/* 업로더 정보 표시 */}
+          <p className="uploader">업로더: {product.uploaderId?.username}</p> {/* 업로더 정보 표시 */}
           <hr className="divider" />
           <p className="product-price">{product.price} 원</p> {/* 제품 가격 */}
           
