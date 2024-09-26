@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="3204b06f-2495-410a-aa4d-3d353a41990a" name="Changes" comment="" />
 =======
+=======
+>>>>>>> 325e900a1bb3c1e76d34cf30714e9ef1dc0f62be
     <list default="true" id="9a02e67b-2302-4dd5-b8dc-bc63e129e3b5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/my-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/package.json" afterDir="false" />
     </list>
+<<<<<<< HEAD
 >>>>>>> 04faaa61eb7e8c52b713fe6aaaa5d95732a7a45d
+=======
+>>>>>>> 325e900a1bb3c1e76d34cf30714e9ef1dc0f62be
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,11 +27,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
 >>>>>>> 04faaa61eb7e8c52b713fe6aaaa5d95732a7a45d
+=======
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+>>>>>>> 325e900a1bb3c1e76d34cf30714e9ef1dc0f62be
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -33,6 +45,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
+<<<<<<< HEAD
 <<<<<<< HEAD
   <component name="ProjectId" id="2mKFdsY9wOxGMFYRMcyYwND1c3E" />
   <component name="ProjectViewState">
@@ -53,6 +66,8 @@
       <option name="presentableId" value="Default" />
       <updated>1726817451009</updated>
 =======
+=======
+>>>>>>> 325e900a1bb3c1e76d34cf30714e9ef1dc0f62be
   <component name="ProjectId" id="2mKFVqrqWXXrVWxk3eQZ0JsELzy" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -77,7 +92,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726817387934</updated>
+<<<<<<< HEAD
 >>>>>>> 04faaa61eb7e8c52b713fe6aaaa5d95732a7a45d
+=======
+>>>>>>> 325e900a1bb3c1e76d34cf30714e9ef1dc0f62be
     </task>
     <servers />
   </component>
