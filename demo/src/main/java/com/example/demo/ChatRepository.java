@@ -13,4 +13,6 @@ public interface ChatRepository extends CrudRepository<Chat, Long> {
            "WHERE c.createdAt = (SELECT MAX(c2.createdAt) FROM Chat c2 WHERE c2.username = c.username) " +
            "ORDER BY c.createdAt DESC")
     List<Chat> findLatestMessages();
+    
+
 }

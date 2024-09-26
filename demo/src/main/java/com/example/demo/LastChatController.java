@@ -1,11 +1,9 @@
 package com.example.demo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,11 +13,10 @@ public class LastChatController {
     @Autowired
     private LastChatRepository lastChatRepository;
 
+    // LastChat 테이블의 모든 레코드를 가져오는 메서드
     @GetMapping("/messages")
     public List<LastChat> getLastChats() {
-        // Iterable을 List로 변환
-        List<LastChat> lastChats = new ArrayList<>();
-        lastChatRepository.findAll().forEach(lastChats::add); // Iterable을 List로 추가
-        return lastChats; // List 반환
+        // LastChat 테이블에서 모든 레코드를 날짜 내림차순으로 가져오기
+        return lastChatRepository.findAllByOrderByCreatedAtDesc();
     }
 }

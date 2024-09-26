@@ -1,8 +1,12 @@
 package com.example.demo;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public interface LastChatRepository extends CrudRepository<LastChat, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LastChatRepository extends JpaRepository<LastChat, Long> {
+    // username으로 LastChat을 찾는 메서드
+    LastChat findByUsername(String username);
+    List<LastChat> findAllByOrderByCreatedAtDesc();
+
 }
