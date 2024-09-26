@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface MasterChatListRepository extends CrudRepository<MasterChatList, Long> {
 
-    @Query("SELECT c FROM MasterChatList c " +
-           "WHERE c.createdAt = (SELECT MAX(c2.createdAt) FROM MasterChatList c2 WHERE c2.username = c.username) " +
-           "ORDER BY c.createdAt DESC")
-    List<MasterChatList> findGroupedChatMessages();
+	@Query("SELECT c FROM MasterChatList c " +
+		       "WHERE c.createdAt = (SELECT MAX(c2.createdAt) FROM MasterChatList c2 WHERE c2.toUsername = c.toUsername) " +
+		       "ORDER BY c.createdAt DESC")
+		List<MasterChatList> findGroupedChatMessages();
+
+    
 }
+
+
+
