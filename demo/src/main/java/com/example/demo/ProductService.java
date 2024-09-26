@@ -7,12 +7,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
 import java.util.Optional;
 
 
 @Service
 public class ProductService {
+
+    @Autowired
+    private UserService userService; // UserService를 주입받아 사용자 관련 로직 처리
 
 	@Autowired
 	private ProductRepository productRepository; // ProductRepository를 주입받아 데이터 액세스를 담당
@@ -23,36 +27,48 @@ public class ProductService {
 	}
 
 	// 새로운 제품을 생성하는 메소드
-	public Product uploadProduct(String name, Integer price, String kind, List<MultipartFile> images) {
-		Product newProduct = new Product();
-		newProduct.setName(name);
-		newProduct.setPrice(price);
-		newProduct.setKind(kind);
+	public Product uploadProduct(String name, Integer price, String kind, MultipartFile image, String uploaderId) {
+	    // uploaderId로 User 조회
+	    User uploader = userService.findByUsername(uploaderId); // 사용자 조회 메소드 추가 필요
 
-		// 이미지 저장 경로 설정 (절대 경로)
-		String absolutePath = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images\\"; // 절대경로
+	    if (uploader == null) {
+	    	System.out.println(uploaderId);
+	        System.out.println("Uploader is null");
+	        return null; // 또는 예외 처리
+	    }
 
-		// 이미지 저장 로직
-		for (MultipartFile image : images) {
-			if (!image.isEmpty()) {
-				try {
-					// 파일 이름 가져오기
-					String fileName = image.getOriginalFilename();
-					// 이미지 파일을 지정된 경로에 저장
-					File destinationFile = new File(absolutePath + fileName); // 절대 경로 사용
-					destinationFile.getParentFile().mkdirs(); // 부모 디렉토리 생성 (없을 경우)
-					image.transferTo(destinationFile); // 파일 전송
-					// 저장된 이미지 경로를 Product 객체에 설정 (여기서는 첫 번째 이미지 경로만 설정)
-					newProduct.setImagePath("images/" + fileName); // 저장된 이미지 경로
-				} catch (IOException e) {
-					e.printStackTrace(); // 예외 처리
-				}
-			}
-		}
+	    Product newProduct = new Product();
+	    newProduct.setName(name);
+	    newProduct.setPrice(price);
+	    newProduct.setKind(kind);
+	    newProduct.setUploadDate(LocalDateTime.now()); // 업로드 날짜 설정
+	    newProduct.setUploaderId(uploader); // 업로더 설정
 
-		return productRepository.save(newProduct); // 제품을 저장하고 반환
+	    // 이미지 저장 경로 설정 (절대 경로)
+	    String absolutePath = "C:\\TeamManding\\demo\\src\\main\\resources\\static\\images\\"; // 절대경로
 
+	    // 이미지 저장 로직
+	    if (image != null && !image.isEmpty()) {
+	        try {
+	            // 파일 이름 가져오기
+	            String fileName = image.getOriginalFilename();
+	            // 이미지 파일을 지정된 경로에 저장
+	            File destinationFile = new File(absolutePath + fileName); // 절대 경로 사용
+	            destinationFile.getParentFile().mkdirs(); // 부모 디렉토리 생성 (없을 경우)
+	            image.transferTo(destinationFile); // 파일 전송
+	            // 저장된 이미지 경로를 Product 객체에 설정
+	            newProduct.setImagePath("images/" + fileName); // 저장된 이미지 경로
+	        } catch (IOException e) {
+	            e.printStackTrace(); // 예외 처리
+	        }
+	    }
+
+	    return productRepository.save(newProduct); // 제품을 저장하고 반환
 	}
+
+
+
+
 
 
 
