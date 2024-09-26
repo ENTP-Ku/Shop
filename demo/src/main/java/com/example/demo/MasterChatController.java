@@ -42,11 +42,16 @@ public class MasterChatController {
         allMessages.addAll(masterChatMessages);
 
         // chatMessages를 MasterChat 형태로 변환하고 추가
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // 날짜 포맷 설정
         for (Chat chatMessage : chatMessages) {
             MasterChat masterChat = new MasterChat();
             masterChat.setUsername(chatMessage.getUsername());
             masterChat.setMessage(chatMessage.getMessage());
-            masterChat.setCreatedAt(chatMessage.getCreatedAt()); // Chat 객체에서 createdAt 값을 가져와 설정
+
+            // LocalDateTime을 String으로 변환하여 설정
+            String formattedCreatedAt = chatMessage.getCreatedAt().format(formatter);
+            masterChat.setCreatedAt(formattedCreatedAt);
+
             allMessages.add(masterChat);
         }
 
@@ -55,4 +60,5 @@ public class MasterChatController {
 
         return allMessages; // 모든 메시지 반환
     }
+
 }
