@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Register.css'; // CSS 파일 연결
 
@@ -73,8 +73,9 @@ const Register = () => {
 
   return (
     <div className="register-container">
+
       <input 
-        type="text" 
+        type="text"  
         placeholder="아이디" 
         value={id} 
         onChange={e => setId(e.target.value)} 
@@ -108,7 +109,18 @@ const Register = () => {
       {isUniqueNumberTaken && <span className="error-message">이미 가입한 회원입니다.</span>}
 
       <button onClick={handleRegister} className="register-button">가입</button>
+     {/* 푸터 */}
+     <footer className="footer">
+        <p>&copy; 2024 MyApp. All rights reserved.</p>
+        <ul className="footer-links">
+        <li><Link to="/privacy">Privacy Policy</Link></li>
+          <li><Link to="/terms">Terms of Service</Link></li>
+          <li><Link to="/help">Help</Link></li>
+        </ul>
+      </footer>
+  
     </div>
+    
   );
 };
 

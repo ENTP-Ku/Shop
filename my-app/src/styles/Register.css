@@ -1,25 +1,32 @@
 /* 전체 레이아웃 설정 */
 .register-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
-    max-width: 400px;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(153, 148, 148, 0.1);
+  padding: 60px;
+  border-radius: 20px;
+  max-width: 450px;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  background-color: #e6dada;
+  margin: auto;
   }
   
-  /* 입력 필드 스타일 */
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
   
+/* 입력 필드 스타일 */
+.input-field {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(54, 39, 39, 0.2);
+  font-size: 1rem;
+}
+
+.input-field::placeholder {
+  color: #646262;       /* 글씨색깔 */
+}
+
   /* 에러 메시지 스타일 */
   .error-message {
     color: red;
@@ -31,7 +38,7 @@
   /* 가입 버튼 스타일 */
   .register-button {
     padding: 10px;
-    background-color: #4CAF50;
+    background: linear-gradient(to right, #ff6b6b, #ff3d3d);
     color: white;
     border: none;
     border-radius: 5px;
@@ -41,6 +48,61 @@
   }
   
   .register-button:hover {
-    background-color: #45a049;
+    background-color: #ff6b6b;
   }
   
+
+
+
+
+
+
+
+
+
+
+
+  /* 푸터 스타일 */
+.footer {
+  background-color: #0a1630;    
+  height: 150px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+
+
+}
+
+.footer p {
+  margin-bottom: 10px;
+  color: white;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-left: 20px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+
+
+/* 반응형 디자인 */
+@media screen and (max-width: 960px) {
+  .register-container {
+    max-width: 300px;
+    padding: 40px;
+    margin: 0 auto;
+    margin-top: 10%;
+    margin-bottom: 20px;
+  }
+}
