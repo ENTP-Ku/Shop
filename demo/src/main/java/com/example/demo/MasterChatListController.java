@@ -27,9 +27,5 @@ public class MasterChatListController {
         return masterChatListRepository.save(chatMessage); // 메시지 저장
     }
 
-    // 특정 사용자와 관리자의 모든 메시지를 가져오는 메서드
-    @GetMapping("/messages/{toUsername}/{username}")
-    public List<MasterChatList> getAllMessagesByUser(@PathVariable String toUsername, @PathVariable String username) {
-        return masterChatListRepository.findAllMessagesByUser(toUsername, username); // 사용자와 관리자의 모든 메시지 반환
-    }
+
 }

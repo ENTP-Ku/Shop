@@ -26,7 +26,7 @@ public class MasterChatList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String toUsername;
     private String message;
 
     @Column(name = "created_at")
