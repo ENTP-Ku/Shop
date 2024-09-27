@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Register.css'; // CSS 파일 연결
-import "../styles/Detail.css"; // detail CSS 스타일시트 연결
 
 const Register = () => {
   const [id, setId] = useState('');
@@ -73,7 +72,54 @@ const Register = () => {
   };
 
   return (
+
+
+
+
     <div className="register-container">
+
+       <nav className="navbar"> {/* 네비게이션 시작 */}
+      <div className="navbar-container">
+        {/* 왼쪽 메뉴 */}
+        <ul className="navbar-menu">
+          <li>
+            <Link to="/products">제품</Link>
+          </li>
+          <li>
+            <Link to="/board">고객지원</Link>
+          </li>        
+        </ul>
+
+        {/* 중앙 로고 */}
+        <div className="navbar-logo">
+          <Link to="/">Amor</Link>
+        </div>
+
+        {/* 오른쪽 메뉴 */}
+        <ul className="navbar-icons">
+          <li>
+            <Link to="/search">
+              <i className="fa fa-search"></i>
+            </Link>
+          </li>
+          <li>
+            <Link to="/cart">
+              <i className="fa fa-shopping-cart"></i>
+              <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/login">로그인</Link>
+          </li>
+          <li>
+            <Link to="/register">회원가입</Link>
+          </li>
+          <li>
+            <Link to="/chat">채팅</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
       <input 
         type="text"  
@@ -111,16 +157,7 @@ const Register = () => {
 
       <button onClick={handleRegister} className="register-button">가입</button>
       
-     {/* 푸터 */}
-     <footer className="footer">
-        <p>&copy; 2024 MyApp. All rights reserved.</p>
-        <ul className="footer-links">
-        <li><Link to="/privacy">Privacy Policy</Link></li>
-          <li><Link to="/terms">Terms of Service</Link></li>
-          <li><Link to="/help">Help</Link></li>
-        </ul>
-      </footer>
-  
+    
     </div>
     
   );

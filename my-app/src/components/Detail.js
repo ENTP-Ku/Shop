@@ -45,6 +45,7 @@ const Detail = () => {
   return (
     
     <section className="detail-body"> {/* 메인 콘텐츠 시작 */}
+    
     <nav className="navbar"> {/* 네비게이션 시작 */}
       <div className="navbar-container">
         {/* 왼쪽 메뉴 */}

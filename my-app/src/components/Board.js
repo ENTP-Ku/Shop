@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom"; 
+import { Link } from 'react-router-dom'; // Link 컴포넌트 임포트
 import axios from "axios"; 
 import '../styles/Board.css'; // Board.css 경로를 설정
 
@@ -41,6 +42,50 @@ const Board = () => {
 
   return (
     <div className="board-container">
+
+       <nav className="navbar"> {/* 네비게이션 시작 */}
+      <div className="navbar-container">
+        {/* 왼쪽 메뉴 */}
+        <ul className="navbar-menu">
+          <li>
+            <Link to="/products">제품</Link>
+          </li>
+          <li>
+            <Link to="/board">고객지원</Link>
+          </li>        
+        </ul>
+
+        {/* 중앙 로고 */}
+        <div className="navbar-logo">
+          <Link to="/">Amor</Link>
+        </div>
+
+        {/* 오른쪽 메뉴 */}
+        <ul className="navbar-icons">
+          <li>
+            <Link to="/search">
+              <i className="fa fa-search"></i>
+            </Link>
+          </li>
+          <li>
+            <Link to="/cart">
+              <i className="fa fa-shopping-cart"></i>
+              <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/login">로그인</Link>
+          </li>
+          <li>
+            <Link to="/signup">회원가입</Link>
+          </li>
+          <li>
+            <Link to="/chat">채팅</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
       <h1 className="board-title">게시판</h1>
       {jwt && (
         <>
@@ -104,6 +149,16 @@ const Board = () => {
           다음
         </button>
       </div>
+
+            {/* 푸터 */}
+            <footer className="footer">
+        <p>&copy; 2024 MyApp. All rights reserved.</p>
+        <ul className="footer-links">
+          <li><Link to="/privacy">Privacy Policy</Link></li>
+          <li><Link to="/terms">Terms of Service</Link></li>
+          <li><Link to="/help">Help</Link></li>
+        </ul>
+      </footer>
     </div>
   );
 };
