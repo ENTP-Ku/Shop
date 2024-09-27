@@ -22,11 +22,12 @@ const MChat = () => {
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return; // 빈 메시지 전송 방지
 
+    const formattedMessage = `master: ${inputMessage}`; // 접두사를 추가하여 메시지 포맷팅
+
     try {
       const response = await axios.post(`/api/chat/messages`, {
         username: username,
-        message: inputMessage,
-        // createdAt 필드는 서버에서 자동으로 설정하므로 클라이언트에서 보내지 않음
+        message: formattedMessage, // 접두사가 붙은 메시지 전송
       });
 
       if (response.status === 200) {
@@ -37,7 +38,10 @@ const MChat = () => {
         console.error("메시지 전송 실패:", response.status);
       }
     } catch (error) {
-      console.error("메시지 전송 중 오류 발생:", error.response ? error.response.data : error.message);
+      console.error(
+        "메시지 전송 중 오류 발생:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -51,7 +55,7 @@ const MChat = () => {
       <ul>
         {messages.map((msg, index) => (
           <li key={index}>
-            <strong>{msg.username}</strong>: {msg.message}{" "}
+            {msg.message}{" "}
             <small>{new Date(msg.createdAt).toLocaleString()}</small>
           </li>
         ))}
