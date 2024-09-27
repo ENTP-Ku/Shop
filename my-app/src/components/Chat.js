@@ -1,52 +1,61 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // 명명된 내보내기로 가져오기
+import io from "socket.io-client"; // Import socket.io-client
+import { jwtDecode } from "jwt-decode";
+
+const socket = io("http://localhost:4000"); // Connect to socket server
 
 const Chat = () => {
-  const [message, setMessage] = useState(""); // 입력된 메시지 상태
-  const [chat, setChat] = useState([]); // 전체 채팅 메시지 상태
+  const [message, setMessage] = useState("");
+  const [chat, setChat] = useState([]);
 
-  // JWT 토큰에서 username 추출
-  const token = localStorage.getItem("jwt"); // JWT가 로컬 스토리지에 저장되어 있다고 가정
-  const username = token ? jwtDecode(token).username : "익명"; // username 추출 (없으면 '익명' 사용)
+  const token = localStorage.getItem("jwt");
+  const username = token ? jwtDecode(token).username : "익명";
 
-  // 채팅 목록을 가져오는 함수
   const fetchChats = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/chat/all-messages?username=${username}`); // URL 수정
-      // 현재 사용자와 동일한 username을 가진 메시지만 필터링
+      const response = await axios.get(`http://localhost:8080/chat/all-messages?username=${username}`);
       const filteredChats = response.data.filter((msg) => msg.username === username);
-      setChat(filteredChats.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))); // 시간 오름차순으로 정렬하여 상태 업데이트
+      setChat(filteredChats.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
     } catch (error) {
       console.error("채팅을 가져오는 중 오류 발생:", error);
     }
   };
 
-  // 컴포넌트가 마운트될 때 채팅 목록을 가져옴
   useEffect(() => {
-    fetchChats(); // 초기 채팅 목록 가져오기
-  }, [username]); // username이 변경되면 효과 재실행
+    fetchChats(); 
 
-  // 메시지 전송 핸들러
+    socket.on("chat message", (newMessage) => {
+      setChat((prevChat) => [...prevChat, newMessage]);
+    });
+
+    return () => {
+      socket.off("chat message");
+    };
+  }, [username]);
+
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim()) {
       const formattedMessage = {
-        message: `${username}: ${message}`, // username 접두사 추가
+        message: `${username}: ${message}`,
         username: username,
+        createdAt: new Date(), // 메시지에 createdAt 필드를 추가
+
       };
 
-      axios
-        .post("http://localhost:8080/chat/send", formattedMessage) // URL 수정
+      axios.post("http://localhost:8080/chat/send", formattedMessage)
         .then((response) => {
-          console.log("메시지가 저장되었습니다:", response.data);
-          fetchChats(); // 새 메시지가 저장된 후 채팅 목록 다시 가져오기
+          fetchChats();
         })
         .catch((error) => {
           console.error("메시지 저장 중 오류 발생:", error);
         });
 
-      setMessage(""); // 입력 필드 초기화
+      // Emit the message through the socket
+      socket.emit("chat message", formattedMessage);
+
+      setMessage("");
     }
   };
 
@@ -55,11 +64,9 @@ const Chat = () => {
       <h1>채팅방</h1>
       <div>
         <ul>
-          {/* 채팅 메시지 리스트 표시 */}
           {chat.map((msg, index) => (
             <li key={index}>
-              {msg.message}{" "}
-              <small>{new Date(msg.createdAt).toLocaleString()}</small>
+              {msg.message} <small>{new Date(msg.createdAt).toLocaleString()}</small>
             </li>
           ))}
         </ul>
