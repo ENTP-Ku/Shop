@@ -46,42 +46,48 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      {/* 헤더 */}
-      <header className="header">
-        <nav className="navbar">
-          <div className="navbar-container">
-            <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-              쇼핑몰 <i className="fab fa-typo3" />
+       <nav className="navbar"> {/* 네비게이션 시작 */}
+      <div className="navbar-container">
+        {/* 왼쪽 메뉴 */}
+        <ul className="navbar-menu">
+          <li>
+            <Link to="/products">제품</Link>
+          </li>
+          <li>
+            <Link to="/board">고객지원</Link>
+          </li>        
+        </ul>
+
+        {/* 중앙 로고 */}
+        <div className="navbar-logo">
+          <Link to="/">Amor</Link>
+        </div>
+
+        {/* 오른쪽 메뉴 */}
+        <ul className="navbar-icons">
+          <li>
+            <Link to="/search">
+              <i className="fa fa-search"></i>
             </Link>
-            <div className="menu-icon" onClick={handleClick}>
-              {/* 클릭 상태에 따라 햄버거 아이콘을 변경 */}
-              <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-            </div>
-            <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-              <li className="nav-item">
-                <Link to="/" className="nav-links" onClick={closeMobileMenu}>
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/services" className="nav-links" onClick={closeMobileMenu}>
-                  Services
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/products" className="nav-links" onClick={closeMobileMenu}>
-                  Products
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/sign-up" className="nav-links-mobile" onClick={closeMobileMenu}>
-                  Sign Up
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+          </li>
+          <li>
+            <Link to="/cart">
+              <i className="fa fa-shopping-cart"></i>
+              <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/login">로그인</Link>
+          </li>
+          <li>
+            <Link to="/register">회원가입</Link>
+          </li>
+          <li>
+            <Link to="/chat">채팅</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
       {/* 콘텐츠 영역 */}
       <div className="content-wrapper">
@@ -135,6 +141,7 @@ const Login = () => {
           <li><Link to="/help">Help</Link></li>
         </ul>
       </footer>
+      
     </div>
   );
 };

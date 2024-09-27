@@ -61,6 +61,7 @@ const Detail = () => {
             <Link to="/">Amor</Link>
           </div>
 
+
           {/* 오른쪽 메뉴 */}
           <ul className="navbar-icons">
             <li>
