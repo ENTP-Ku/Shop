@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import io from "socket.io-client"; // 소켓 클라이언트 가져오기
+
+const socket = io("http://localhost:4000"); // 소켓 서버 연결
 
 const MChat = () => {
   const [messages, setMessages] = useState([]); // 메시지 목록
@@ -27,20 +30,36 @@ const MChat = () => {
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return; // 빈 메시지 전송 방지
 
-    const formattedMessage = { username: "master", message: inputMessage }; // 메시지 포맷팅
+    const formattedMessage = { username: username, message: `master: ${inputMessage}` }; // 메시지 포맷팅에 접두사 추가
 
+    // 소켓을 통해 메시지 전송
+    socket.emit("chat message", formattedMessage);
+
+    // 데이터베이스에 메시지 저장
     try {
-      await axios.post(`http://localhost:8080/api/chat/messages/${username}`, formattedMessage); // Base URL 추가
-      setMessages((prevMessages) => [...prevMessages, { ...formattedMessage, createdAt: new Date() }]); // 상태에 메시지 추가
-      setInputMessage(""); // 입력창 비우기
+      await axios.post(`http://localhost:8080/api/chat/messages`, formattedMessage); // DB에 메시지 저장
+      // 로컬 상태에도 메시지 추가
+      setMessages((prevMessages) => [...prevMessages, { ...formattedMessage, createdAt: new Date() }]);
     } catch (error) {
-      console.error("메시지 전송 중 오류 발생:", error);
-      alert("메시지 전송에 실패했습니다."); // 사용자에게 오류 알림
+      console.error("메시지 저장 중 오류 발생:", error);
+      alert("메시지 저장에 실패했습니다."); // 오류 알림
     }
+
+    setInputMessage(""); // 입력창 비우기
   };
 
   useEffect(() => {
     fetchMessages(); // 메시지 가져오기
+
+    // 소켓에서 메시지 수신
+    socket.on("chat message", (msg) => {
+      setMessages((prevMessages) => [...prevMessages, { ...msg, createdAt: new Date() }]); // 수신한 메시지 추가
+    });
+
+    // 컴포넌트 언마운트 시 소켓 이벤트 해제
+    return () => {
+      socket.off("chat message");
+    };
   }, [username]);
 
   return (
