@@ -20,7 +20,7 @@ const Chat = () => {
       const response = await axios.get(`http://localhost:8080/chat/all-messages?username=${username}`); // URL 수정
       // 현재 사용자와 동일한 username을 가진 메시지만 필터링
       const filteredChats = response.data.filter((msg) => msg.username === username);
-      setChat(filteredChats); // 필터링된 채팅 목록 상태 업데이트
+      setChat(filteredChats.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))); // 시간 오름차순으로 정렬하여 상태 업데이트
     } catch (error) {
       console.error("채팅을 가져오는 중 오류 발생:", error);
     }
@@ -35,7 +35,11 @@ const Chat = () => {
       // 수신한 메시지를 객체로 변환하여 username 필드 추가
       const [user, message] = msg.split(": "); // 메시지를 user와 message로 분리
       if (user === username) {
-        setChat((prevChat) => [...prevChat, { message, username: user, createdAt: new Date() }]); // 새로운 메시지를 채팅 목록에 추가
+        const newMessage = { message, username: user, createdAt: new Date() };
+        setChat((prevChat) => {
+          const updatedChat = [...prevChat, newMessage];
+          return updatedChat.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // 시간 오름차순으로 정렬
+        });
       }
     });
 

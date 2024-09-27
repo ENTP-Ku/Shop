@@ -26,6 +26,11 @@ const MChat = () => {
     }
   };
 
+  // 메시지 배열을 시간 오름차순으로 정렬하는 함수
+  const sortMessages = (msgs) => {
+    return msgs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  };
+
   // 메시지 전송 함수
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return; // 빈 메시지 전송 방지
@@ -38,8 +43,8 @@ const MChat = () => {
     // 데이터베이스에 메시지 저장
     try {
       await axios.post(`http://localhost:8080/api/chat/messages`, formattedMessage); // DB에 메시지 저장
-      // 로컬 상태에도 메시지 추가
-      setMessages((prevMessages) => [...prevMessages, { ...formattedMessage, createdAt: new Date() }]);
+      // 로컬 상태에도 메시지 추가 후 정렬
+      setMessages((prevMessages) => sortMessages([...prevMessages, { ...formattedMessage, createdAt: new Date() }]));
     } catch (error) {
       console.error("메시지 저장 중 오류 발생:", error);
       alert("메시지 저장에 실패했습니다."); // 오류 알림
@@ -53,7 +58,7 @@ const MChat = () => {
 
     // 소켓에서 메시지 수신
     socket.on("chat message", (msg) => {
-      setMessages((prevMessages) => [...prevMessages, { ...msg, createdAt: new Date() }]); // 수신한 메시지 추가
+      setMessages((prevMessages) => sortMessages([...prevMessages, { ...msg, createdAt: new Date() }])); // 수신한 메시지 추가 후 정렬
     });
 
     // 컴포넌트 언마운트 시 소켓 이벤트 해제
@@ -69,7 +74,7 @@ const MChat = () => {
         <p>로딩 중...</p> // 로딩 중 표시
       ) : (
         <ul>
-          {messages.map((msg, index) => (
+          {sortMessages(messages).map((msg, index) => ( // 정렬된 메시지 목록 표시
             <li key={index}>
               {msg.message}{" "}
               <small>{new Date(msg.createdAt).toLocaleString()}</small>
