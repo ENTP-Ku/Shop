@@ -8,8 +8,9 @@ import Board from './components/Board';
 import Write from './components/Write';
 import BoardDetail from './components/BoardDetail';
 import Detail from './components/Detail';
-import Chat from './components/Chat'; // Chat 컴포넌트 추가
-import ChatML from './components/ChatML'; // ChatML 컴포넌트 추가
+import Chat from './components/Chat'; 
+import ChatML from './components/ChatML'; 
+import MChat from './components/MChat'; // MChat 컴포넌트 추가
 
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
         <Route path="/write" element={<Write />} />
         <Route path="/boardDetail/:id" element={<BoardDetail />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/chat" element={<Chat />} /> {/* Chat 경로 추가 */}
-        <Route path="/chatML" element={<ChatML />} /> {/* ChatML 경로 추가 */}
+        <Route path="/chat" element={<Chat />} /> 
+        <Route path="/chatML" element={<ChatML />} /> 
+        <Route path="/mChat" element={<MChat />} /> {/* MChat 경로 추가 */}
       </Routes>
     </Router>
   );

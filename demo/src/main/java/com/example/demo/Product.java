@@ -20,9 +20,8 @@ public class Product {
     private String name; // 제품명
     private Integer price; // 제품 가격
     private String kind; // 제품 종류 (예: 'top' 또는 'bottom')
-    private LocalDateTime uploadData; // 제품이 업로드된 날짜와 시간
+    private LocalDateTime uploadDate; // 제품이 업로드된 날짜와 시간
 
     @ManyToOne // 다대일 관계 설정 (여러 제품이 하나의 사용자에 속할 수 있음)
-    private User uploader; // 업로더 (사용자) 정보
-=======
+    private User uploaderId; // 업로더 (사용자) 정보
 }
