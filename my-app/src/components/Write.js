@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'; // React 및 useState, useEf
 import { useNavigate } from 'react-router-dom'; // 페이지 내비게이션을 위한 useNavigate 훅을 import합니다.
 import axios from 'axios'; // HTTP 요청을 처리하기 위해 axios를 import합니다.
 import '../styles/Write.css'; // CSS 파일 연결
-import { Link } from 'react-router-dom'; // Link 컴포넌트 임포트
+import { Link } from 'react-router-dom'; // Link 컴포넌트를 import합니다.
 
 const Write = () => {
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 생성
@@ -10,23 +10,25 @@ const Write = () => {
     const [postDetail, setPostDetail] = useState(''); // 내용 상태 초기화
     const [userId, setUserId] = useState(''); // 사용자 ID 상태 초기화
 
+    // 컴포넌트가 마운트될 때 실행되는 useEffect 훅
     useEffect(() => {
-        const storedJwt = localStorage.getItem('jwt');
-        if (storedJwt) {
+        const storedJwt = localStorage.getItem('jwt'); // 로컬 스토리지에서 JWT 가져오기
+        if (storedJwt) { // JWT가 존재하는 경우
             try {
-                const payload = storedJwt.split('.')[1];
-                const decodedPayload = JSON.parse(atob(payload));
-    
+                const payload = storedJwt.split('.')[1]; // JWT에서 페이로드 부분 추출
+                const decodedPayload = JSON.parse(atob(payload)); // 페이로드 디코딩
+
                 // 'username' 필드에서 사용자 ID를 가져와서 설정
                 if (decodedPayload && decodedPayload.username) {
-                    setUserId(decodedPayload.username);
+                    setUserId(decodedPayload.username); // 사용자 ID 설정
                 }
             } catch (error) {
-                console.error("Error decoding JWT:", error);
+                console.error("Error decoding JWT:", error); // JWT 디코딩 오류 처리
             }
         }
-    }, []);
+    }, []); // 빈 배열을 의존성으로 하여 컴포넌트 최초 렌더링 시 한 번만 실행됨
         
+    // 제출 버튼 클릭 시 실행되는 함수
     const handleSubmit = async () => {
         // 제목과 내용이 모두 입력되었는지 검증
         if (!postTitle || !postDetail) {
@@ -47,47 +49,47 @@ const Write = () => {
     return (
         <div className='form-container'>
              <nav className="navbar"> {/* 네비게이션 시작 */}
-      <div className="navbar-container">
-        {/* 왼쪽 메뉴 */}
-        <ul className="navbar-menu">
-          <li>
-            <Link to="/products">제품</Link>
-          </li>
-          <li>
-            <Link to="/board">고객지원</Link>
-          </li>        
-        </ul>
+                <div className="navbar-container">
+                    {/* 왼쪽 메뉴 */}
+                    <ul className="navbar-menu">
+                        <li>
+                            <Link to="/products">제품</Link>
+                        </li>
+                        <li>
+                            <Link to="/board">고객지원</Link>
+                        </li>        
+                    </ul>
 
-        {/* 중앙 로고 */}
-        <div className="navbar-logo">
-          <Link to="/">Amor</Link>
-        </div>
+                    {/* 중앙 로고 */}
+                    <div className="navbar-logo">
+                        <Link to="/">Amor</Link>
+                    </div>
 
-        {/* 오른쪽 메뉴 */}
-        <ul className="navbar-icons">
-          <li>
-            <Link to="/search">
-              <i className="fa fa-search"></i>
-            </Link>
-          </li>
-          <li>
-            <Link to="/cart">
-              <i className="fa fa-shopping-cart"></i>
-              <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/login">로그인</Link>
-          </li>
-          <li>
-            <Link to="/signup">회원가입</Link>
-          </li>
-          <li>
-            <Link to="/chat">채팅</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+                    {/* 오른쪽 메뉴 */}
+                    <ul className="navbar-icons">
+                        <li>
+                            <Link to="/search">
+                                <i className="fa fa-search"></i>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/cart">
+                                <i className="fa fa-shopping-cart"></i>
+                                <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/login">로그인</Link>
+                        </li>
+                        <li>
+                            <Link to="/signup">회원가입</Link>
+                        </li>
+                        <li>
+                            <Link to="/chat">채팅</Link>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             <h1 className='form-title'>문의글 작성</h1>
             
             <input className='input-field input-title'
@@ -102,8 +104,8 @@ const Write = () => {
                 onChange={(e) => setPostDetail(e.target.value)} // 입력값 변경 시 상태 업데이트
             />
             <div className="button-group">
-                <button className='submit-button' onClick={handleSubmit}>등록</button>
-                <button className="button back-button" onClick={() => window.history.back()}>뒤로가기</button>
+                <button className='submit-button' onClick={handleSubmit}>등록</button> {/* 게시물 등록 버튼 */}
+                <button className="button back-button" onClick={() => window.history.back()}>뒤로가기</button> {/* 뒤로가기 버튼 */}
             </div>
         </div>
     );
