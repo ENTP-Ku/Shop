@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne; // 다대일 관계를 나타내기 위한
 import lombok.Data; // Lombok의 @Data 어노테이션을 사용하기 위한 import
 
 // 제품 정보를 나타내는 JPA 엔티티 클래스
-@Entity
+@Entity // JPA가 이 클래스를 엔티티로 인식하도록 설정
 @Data // 모든 필드에 대한 getter, setter 및 toString, equals, hashCode 메소드 자동 생성
 public class Product {
     @Id // 이 필드는 엔티티의 기본 키임을 나타냄

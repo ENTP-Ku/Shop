@@ -1,6 +1,5 @@
 package com.example.demo; // 패키지 선언
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired; // 의존성 주입을 위한 import
 import org.springframework.stereotype.Service; // 서비스 클래스를 나타내는 annotation
@@ -16,18 +15,18 @@ public class UserService {
         return userRepository.save(user); // 사용자 정보를 저장하고 반환
     }
     
+    // 주어진 사용자 이름이 이미 존재하는지 확인하는 메서드
     public boolean usernameExists(String username) {
         return userRepository.existsByUsername(username); // Repository에서 존재 여부 확인
     }
     
+    // 주어진 고유번호가 이미 존재하는지 확인하는 메서드
     public boolean uniqueNumberExists(String uniqueNumber) {
-    	System.out.println("고유번호 서비스 접근 성공");
+        System.out.println("고유번호 서비스 접근 성공"); // 접근 성공 메시지 출력
         return userRepository.existsByUniqueNumber(uniqueNumber); // Repository에서 존재 여부 확인
     }
 
-
-
-    // 로그인 메서드
+    // 사용자 로그인 메서드
     public User login(String username, String password) {
         User user = userRepository.findByUsername(username); // 사용자 이름으로 사용자 검색
 
@@ -39,11 +38,8 @@ public class UserService {
         }
     }
 
-    
- // UserService 클래스 내 메서드
+    // 주어진 사용자 이름으로 사용자를 검색하는 메서드
     public User findByUsername(String username) {
         return userRepository.findByUsername(username); // 사용자 이름으로 사용자 검색
     }
-
-
 }

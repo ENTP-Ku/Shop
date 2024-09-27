@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired; // 의존성 주�
 import org.springframework.http.ResponseEntity; // HTTP 응답을 나타내는 클래스 import
 import org.springframework.web.bind.annotation.*; // RESTful 웹 서비스를 구축하기 위한 어노테이션 import
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import jakarta.servlet.http.HttpServletRequest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; // 날짜 및 시간 처리를 위한 클래스 import
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
 
 @RestController // RESTful 웹 서비스의 컨트롤러임을 나타내는 어노테이션
@@ -31,20 +28,15 @@ public class PostController {
         return post != null ? ResponseEntity.ok(post) : ResponseEntity.notFound().build(); // 게시글이 존재하면 반환, 없으면 404 응답
     }
 
-
     // 새 게시글을 생성하는 POST 메소드
     @PostMapping 
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         // 사용자 ID 설정 (프론트엔드에서 보낸 ID 사용)
         post.setPostId(post.getPostId()); // 프론트에서 보낸 postId 사용
         post.setPostData(LocalDateTime.now()); // 현재 날짜 및 시간으로 설정
-        Post newPost = postService.createPost(post); 
-        return ResponseEntity.ok(newPost); 
+        Post newPost = postService.createPost(post); // 서비스에서 게시글 생성
+        return ResponseEntity.ok(newPost); // 생성된 게시글 반환
     }
-
-
-
-
 
     // 특정 게시글을 삭제하는 DELETE 메소드
     @DeleteMapping("/{id}") 

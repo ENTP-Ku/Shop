@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication; // Spring B
 public class ShoppingMallApplication {
 
     // 애플리케이션의 진입점
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         // Spring Boot 애플리케이션 실행
-		SpringApplication.run(ShoppingMallApplication.class, args);
-	}
+        SpringApplication.run(ShoppingMallApplication.class, args);
+    }
 
 }
