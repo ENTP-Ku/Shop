@@ -9,6 +9,7 @@ import jakarta.persistence.Id; // 기본 키를 정의하기 위한 어노테이
 import jakarta.persistence.Table; // 엔티티와 테이블의 매핑을 위한 어노테이션 import
 import lombok.Data; // Lombok의 Data 어노테이션 import (자동으로 getter, setter 등 생성)
 
+// Order 클래스는 구매 주문을 나타내는 JPA 엔티티입니다.
 @Entity // JPA가 관리하는 엔티티임을 나타냄
 @Table(name = "purchases") // 이 엔티티가 매핑될 데이터베이스 테이블 이름을 'purchases'로 설정
 @Data // Lombok을 사용하여 getter, setter, toString 등 자동 생성

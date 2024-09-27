@@ -9,6 +9,7 @@ import java.util.List; // List 컬렉션 사용을 위한 import
 @RestController // 이 클래스가 RESTful 웹 서비스의 컨트롤러임을 나타냄
 @RequestMapping("/api/orders") // 이 컨트롤러의 기본 URL 경로를 "/api/orders"로 설정
 public class OrderController {
+    
     @Autowired // OrderService를 자동으로 주입
     private OrderService orderService; // 주문 서비스 인스턴스
 
