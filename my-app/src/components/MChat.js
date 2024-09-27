@@ -16,6 +16,7 @@ const MChat = () => {
       setLoading(true); // 로딩 시작
       try {
         const response = await axios.get(`http://localhost:8080/api/chat/messages/${username}`); // Base URL 추가
+        console.log(response.data); // 데이터 로그 추가
         setMessages(response.data); // 메시지 목록 상태 업데이트
       } catch (error) {
         console.error("메시지를 가져오는 중 오류 발생:", error);
@@ -38,16 +39,15 @@ const MChat = () => {
     const formattedMessage = { username: username, message: `master: ${inputMessage}` }; // 메시지 포맷팅에 접두사 추가
 
     // 소켓을 통해 메시지 전송
-    socket.emit("chat message", formattedMessage);
+    socket.emit("chat message", { ...formattedMessage, createdAt: new Date() }); // createdAt 추가
 
     // 데이터베이스에 메시지 저장
     try {
-      await axios.post(`http://localhost:8080/api/chat/messages`, formattedMessage); // DB에 메시지 저장
-      // 로컬 상태에도 메시지 추가 후 정렬
-      setMessages((prevMessages) => sortMessages([...prevMessages, { ...formattedMessage, createdAt: new Date() }]));
+        await axios.post(`http://localhost:8080/api/chat/messages`, formattedMessage); // DB에 메시지 저장
+        fetchMessages(); // 메시지를 다시 가져오기
     } catch (error) {
-      console.error("메시지 저장 중 오류 발생:", error);
-      alert("메시지 저장에 실패했습니다."); // 오류 알림
+        console.error("메시지 저장 중 오류 발생:", error);
+        alert("메시지 저장에 실패했습니다."); // 오류 알림
     }
 
     setInputMessage(""); // 입력창 비우기
@@ -58,9 +58,14 @@ const MChat = () => {
 
     // 소켓에서 메시지 수신
     socket.on("chat message", (msg) => {
-      setMessages((prevMessages) => sortMessages([...prevMessages, { ...msg, createdAt: new Date() }])); // 수신한 메시지 추가 후 정렬
-    });
-
+      // msg.message에 전체 메시지가 저장되어 있어야 합니다.
+      const newMessage = {
+          message: msg.message, // 메시지 내용
+          createdAt: new Date() // 생성 날짜
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+  });
+  
     // 컴포넌트 언마운트 시 소켓 이벤트 해제
     return () => {
       socket.off("chat message");

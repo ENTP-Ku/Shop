@@ -32,10 +32,9 @@ const Chat = () => {
 
     // 소켓에서 채팅 메시지를 수신
     socket.on("chat message", (msg) => {
-      // 수신한 메시지를 객체로 변환하여 username 필드 추가
       const [user, message] = msg.split(": "); // 메시지를 user와 message로 분리
-      if (user === username) {
-        const newMessage = { message, username: user, createdAt: new Date() };
+      if (user !== username) {
+        const newMessage = { message, username: user, createdAt: new Date() }; // createdAt 추가
         setChat((prevChat) => {
           const updatedChat = [...prevChat, newMessage];
           return updatedChat.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // 시간 오름차순으로 정렬
