@@ -17,7 +17,7 @@ const Chat = () => {
   // 채팅 목록을 가져오는 함수
   const fetchChats = async () => {
     try {
-      const response = await axios.get("/chat/messages"); // API 호출
+      const response = await axios.get(`/chat/all-messages?username=${username}`); // username 포함
       // 현재 사용자와 동일한 username을 가진 메시지만 필터링
       const filteredChats = response.data.filter((msg) => msg.username === username);
       setChat(filteredChats); // 필터링된 채팅 목록 상태 업데이트

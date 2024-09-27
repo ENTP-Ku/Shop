@@ -1,81 +1,83 @@
 /* 전체 레이아웃 설정 */
 .register-container {
-  background-color: rgba(153, 148, 148, 0.1);
-  padding: 60px;
-  border-radius: 20px;
-  max-width: 450px;
-  height: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background-color: #f9f9f9; /* 더 밝고 깔끔한 배경색 */
+  padding: 50px;
+  border-radius: 15px;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
   text-align: center;
-  background-color: #e6dada;
   margin: auto;
-  }
-  
-  
+  margin-top: 5%;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  z-index: 1; /* 푸터와의 위치 충돌 방지 */
+}
+
 /* 입력 필드 스타일 */
 .input-field {
   width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  border: none;
-  background-color: rgba(54, 39, 39, 0.2);
+  padding: 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc; /* 얇은 회색 테두리 */
+  background-color: #f3f3f3; /* 입력 필드 배경 */
   font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: #007bff; /* 포커스 시 파란색 테두리 */
+  outline: none;
 }
 
 .input-field::placeholder {
-  color: #646262;       /* 글씨색깔 */
+  color: #9a9a9a; /* 입력 필드의 플레이스홀더 색상 */
 }
 
-  /* 에러 메시지 스타일 */
-  .error-message {
-    color: red;
-    font-size: 0.9em;
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  
-  /* 가입 버튼 스타일 */
-  .register-button {
-    padding: 10px;
-    background: linear-gradient(to right, #ff6b6b, #ff3d3d);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-  }
-  
-  .register-button:hover {
-    background-color: #ff6b6b;
-  }
-  
+/* 에러 메시지 스타일 */
+.error-message {
+  color: #ff3d3d;
+  font-size: 0.85em;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
 
-
-
-
-
-
-
-
-
-
-
-  /* 푸터 스타일 */
-.footer {
-  background-color: #0a1630;    
-  height: 150px;
-  position: fixed;
-  bottom: 0px;
+/* 가입 버튼 스타일 */
+.register-button {
+  padding: 12px;
+  background: linear-gradient(135deg, #42a5f5, #1976d2); /* 그라데이션 색상 */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
   width: 100%;
+  font-size: 1rem;
+}
 
+.register-button:hover {
+  background: linear-gradient(135deg, #1976d2, #42a5f5); /* 반대 방향으로 그라데이션 */
+  transform: scale(1.02); /* 살짝 확대되는 효과 */
+}
 
+/* 푸터 스타일 */
+.footer {
+  background-color: #0a1630;
+  color: white;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 0; /* 푸터가 항상 화면 뒤에 배치 */
 }
 
 .footer p {
-  margin-bottom: 10px;
   color: white;
+  font-size: 0.9rem;
 }
 
 .footer-links {
@@ -86,23 +88,39 @@
 }
 
 .footer-links li {
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 .footer-links a {
   color: white;
   text-decoration: none;
+  font-size: 0.85rem;
 }
 
-
+.footer-links a:hover {
+  color: #42a5f5; /* 링크에 마우스를 올리면 색상 변경 */
+}
 
 /* 반응형 디자인 */
 @media screen and (max-width: 960px) {
   .register-container {
-    max-width: 300px;
-    padding: 40px;
-    margin: 0 auto;
+    max-width: 90%;
+    padding: 30px;
     margin-top: 10%;
-    margin-bottom: 20px;
+  }
+
+  .footer {
+    flex-direction: column; /* 푸터 내용이 세로로 쌓이게 변경 */
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links li {
+    margin: 10px 0;
   }
 }
