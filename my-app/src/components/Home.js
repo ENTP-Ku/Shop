@@ -73,7 +73,7 @@ const Home = () => {
             );
         } else {
             window.open(
-                "/chat",
+                `/chat?username=${username}`,
                 "ChatWindow",
                 "width=600,height=700,resizable=yes,scrollbars=yes"
             );
