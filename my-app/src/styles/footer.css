@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* 푸터 스타일 */
+.footer {
+    background-color: #000000;
+    font-family: 'GmarketSansMedium';
+    height: auto;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.footer p {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: small;
+    color: #8b8b8b;
+    font-weight: lighter;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-left: 20px;
+}
+
+.footer-links a {
+    color: #8b8b8b;
+    font-size: small;
+    text-decoration: none;
+}

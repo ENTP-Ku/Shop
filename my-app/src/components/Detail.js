@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; // React와 필요한 훅 임포트
 import { useParams, useNavigate, Link } from "react-router-dom"; // URL 파라미터와 내비게이션을 위한 훅 임포트
 import axios from "axios"; // API 호출을 위한 axios 임포트
+import Footer from "./footer"; //footer.js 연결
 import "../styles/Detail.css"; // detail CSS 스타일시트 연결
 
 const Detail = () => {
@@ -159,6 +160,7 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      <Footer /> {/* 푸터 추가 */}  
     </section>
   );
 };
