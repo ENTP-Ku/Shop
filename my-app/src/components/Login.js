@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    axios.post('/api/users/login', { username, password })
+    axios.post('http://localhost:8080/api/users/login', { username, password }) // URL 수정
       .then(res => {
         localStorage.setItem('jwt', res.data.token); // 토큰 저장
         navigate('/'); // 로그인 성공 시 홈으로 이동

@@ -17,7 +17,7 @@ const Chat = () => {
   // 채팅 목록을 가져오는 함수
   const fetchChats = async () => {
     try {
-      const response = await axios.get(`/chat/all-messages?username=${username}`); // username 포함
+      const response = await axios.get(`http://localhost:8080/chat/all-messages?username=${username}`); // URL 수정
       // 현재 사용자와 동일한 username을 가진 메시지만 필터링
       const filteredChats = response.data.filter((msg) => msg.username === username);
       setChat(filteredChats); // 필터링된 채팅 목록 상태 업데이트
@@ -56,7 +56,7 @@ const Chat = () => {
       socket.emit("chat message", `${username}: ${message}`);
 
       axios
-        .post("/chat/send", formattedMessage)
+        .post("http://localhost:8080/chat/send", formattedMessage) // URL 수정
         .then((response) => {
           console.log("메시지가 저장되었습니다:", response.data);
           fetchChats(); // 새 메시지가 저장된 후 채팅 목록 다시 가져오기

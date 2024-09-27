@@ -10,15 +10,15 @@ const Board = () => {
   const postsPerPage = 5; // 페이지당 표시할 게시글 수
 
   useEffect(() => {
-    axios.get('/api/posts')
-        .then(response => {
-            // 게시글을 최근 날짜 순으로 정렬합니다.
-            const sortedPosts = response.data.sort((a, b) => new Date(b.postData) - new Date(a.postData));
-            setPosts(sortedPosts);
-        })
-        .catch(error => {
-            console.error('Error fetching board posts:', error);
-        });
+    axios.get('http://localhost:8080/api/posts') // URL 수정
+      .then(response => {
+          // 게시글을 최근 날짜 순으로 정렬합니다.
+          const sortedPosts = response.data.sort((a, b) => new Date(b.postData) - new Date(a.postData));
+          setPosts(sortedPosts);
+      })
+      .catch(error => {
+          console.error('Error fetching board posts:', error);
+      });
   }, []);
 
   const jwt = localStorage.getItem("jwt");

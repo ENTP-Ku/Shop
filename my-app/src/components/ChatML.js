@@ -10,7 +10,7 @@ const ChatML = () => {
   // 모든 사용자 목록과 최신 메시지를 가져오는 함수
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('/api/chat/messages'); // 사용자 목록을 가져오는 API 호출
+      const response = await axios.get('http://localhost:8080/api/chat/messages'); // URL 수정
       setChats(response.data); // 사용자 목록과 최신 메시지 상태 업데이트
     } catch (error) {
       console.error("사용자 목록을 가져오는 중 오류 발생:", error);

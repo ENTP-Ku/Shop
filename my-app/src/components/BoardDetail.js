@@ -10,7 +10,7 @@ const BoardDetail = () => {
     const [post, setPost] = useState(null); 
 
     useEffect(() => {
-        axios.get(`/api/posts/${id}`)
+        axios.get(`http://localhost:8080/api/posts/${id}`) // URL 수정
             .then(response => {
                 setPost(response.data);
             })
@@ -21,19 +21,19 @@ const BoardDetail = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`/api/posts/${id}`);
+            await axios.delete(`http://localhost:8080/api/posts/${id}`); // URL 수정
             alert('게시물이 삭제되었습니다.');
             navigate('/board'); 
         } catch (error) {
             alert('게시물 삭제에 실패했습니다.');
         }
     };
-    // 이전페이지 돌아가는코드입니다.
+
+    // 이전 페이지 돌아가는 코드입니다.
     const handleGoBack = () => {
         navigate(-1); // 이전 페이지로 이동
     };
     
-
     if (!post) return <div>Loading...</div>;
 
     return (
@@ -47,4 +47,4 @@ const BoardDetail = () => {
     );
 };
 
-export default BoardDetail; 
+export default BoardDetail;
