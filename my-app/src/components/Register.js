@@ -10,13 +10,14 @@ const Register = () => {
   const [uniqueNumber, setUniqueNumber] = useState('');
   const [isUsernameTaken, setIsUsernameTaken] = useState(false);
   const [isUniqueNumberTaken, setIsUniqueNumberTaken] = useState(false);
+  const [loading, setLoading] = useState(false); // 로딩 상태
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkUsername = async () => {
       if (id) {
         try {
-          const response = await axios.post('/api/users/check-username', { username: id });
+          const response = await axios.post('http://localhost:8080/api/users/check-username', { username: id }); // Base URL 추가
           setIsUsernameTaken(response.data);
         } catch (err) {
           console.error('중복 체크 오류:', err);
@@ -33,7 +34,7 @@ const Register = () => {
     const checkUniqueNumber = async () => {
       if (uniqueNumber) {
         try {
-          const response = await axios.post('/api/users/check-unique-number', { uniqueNumber });
+          const response = await axios.post('http://localhost:8080/api/users/check-unique-number', { uniqueNumber }); // Base URL 추가
           setIsUniqueNumberTaken(response.data);
         } catch (err) {
           console.error('중복 체크 오류:', err);
@@ -62,12 +63,15 @@ const Register = () => {
       return;
     }
 
+    setLoading(true); // 로딩 시작
     try {
-      await axios.post('/api/users/register', { username: id, password, uniqueNumber });
+      await axios.post('http://localhost:8080/api/users/register', { username: id, password, uniqueNumber }); // Base URL 추가
       alert('환영합니다! 로그인 후 이용해주세요');
       navigate('/login');
     } catch (err) {
       alert(err.response?.data?.message || '회원가입 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false); // 로딩 끝
     }
   };
 
@@ -155,9 +159,10 @@ const Register = () => {
       />
       {isUniqueNumberTaken && <span className="error-message">이미 가입한 회원입니다.</span>}
 
-      <button onClick={handleRegister} className="register-button">가입</button>
-      
-    
+      <button onClick={handleRegister} className="register-button" disabled={loading}>
+        {loading ? '가입 중...' : '가입'}
+      </button> {/* 로딩 상태에 따른 버튼 텍스트 변경 */}
+
     </div>
     
   );

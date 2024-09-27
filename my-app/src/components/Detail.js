@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; // React와 필요한 훅 임포트
-import { useParams, useNavigate, Link} from "react-router-dom"; // URL 파라미터와 내비게이션을 위한 훅 임포트
+import { useParams, useNavigate, Link } from "react-router-dom"; // URL 파라미터와 내비게이션을 위한 훅 임포트
 import axios from "axios"; // API 호출을 위한 axios 임포트
 import "../styles/Detail.css"; // detail CSS 스타일시트 연결
 
@@ -7,11 +7,11 @@ const Detail = () => {
   const { id } = useParams(); // URL에서 제품 ID 추출
   const navigate = useNavigate(); // 내비게이션 훅 생성
   const [product, setProduct] = useState(null); // 제품 상태 관리 (초기값은 null)
- 
+
   useEffect(() => {
     // 컴포넌트가 마운트되거나 id가 변경될 때 API 호출
     axios
-      .get(`/api/products/id/${id}`) // 특정 제품 ID로 API 호출
+      .get(`http://localhost:8080/api/products/id/${id}`) // URL 수정
       .then((response) => {
         console.log("Fetched product:", response.data); // 성공적으로 제품을 가져왔을 때 콘솔에 로그
         setProduct(response.data); // 제품 데이터를 상태에 저장
@@ -27,7 +27,7 @@ const Detail = () => {
   // 제품 삭제 함수
   const handleDelete = () => {
     axios
-      .delete(`/api/product/${id}`) // 제품 삭제 API 호출
+      .delete(`http://localhost:8080/api/product/${id}`) // URL 수정
       .then(() => {
         alert("상품이 삭제되었습니다."); // 삭제 성공 시 알림
         navigate("/board"); // 삭제 후 보드 페이지로 이동
@@ -43,62 +43,59 @@ const Detail = () => {
     product.upload_id === localStorage.getItem("userId"); // 제품 업로드 ID가 현재 사용자 ID와 일치하는지 확인
 
   return (
-    
     <section className="detail-body"> {/* 메인 콘텐츠 시작 */}
-    
-    <nav className="navbar"> {/* 네비게이션 시작 */}
-      <div className="navbar-container">
-        {/* 왼쪽 메뉴 */}
-        <ul className="navbar-menu">
-          <li>
-            <Link to="/products">제품</Link>
-          </li>
-          <li>
-            <Link to="/board">고객지원</Link>
-          </li>        
-        </ul>
+      <nav className="navbar"> {/* 네비게이션 시작 */}
+        <div className="navbar-container">
+          {/* 왼쪽 메뉴 */}
+          <ul className="navbar-menu">
+            <li>
+              <Link to="/products">제품</Link>
+            </li>
+            <li>
+              <Link to="/board">고객지원</Link>
+            </li>
+          </ul>
 
-        {/* 중앙 로고 */}
-        <div className="navbar-logo">
-          <Link to="/">Amor</Link>
+          {/* 중앙 로고 */}
+          <div className="navbar-logo">
+            <Link to="/">Amor</Link>
+          </div>
+
+
+          {/* 오른쪽 메뉴 */}
+          <ul className="navbar-icons">
+            <li>
+              <Link to="/search">
+                <i className="fa fa-search"></i>
+              </Link>
+            </li>
+            <li>
+              <Link to="/cart">
+                <i className="fa fa-shopping-cart"></i>
+                <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/login">로그인</Link>
+            </li>
+            <li>
+              <Link to="/signup">회원가입</Link>
+            </li>
+            <li>
+              <Link to="/chat">채팅</Link>
+            </li>
+          </ul>
         </div>
-
-        {/* 오른쪽 메뉴 */}
-        <ul className="navbar-icons">
-          <li>
-            <Link to="/search">
-              <i className="fa fa-search"></i>
-            </Link>
-          </li>
-          <li>
-            <Link to="/cart">
-              <i className="fa fa-shopping-cart"></i>
-              <span className="cart-count">{/* 장바구니 내 수량과 연결 */}</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/login">로그인</Link>
-          </li>
-          <li>
-            <Link to="/signup">회원가입</Link>
-          </li>
-          <li>
-            <Link to="/chat">채팅</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      </nav>
 
       <div className="detail-container"> {/* 상세 페이지 컨테이너 */}
         <div className="detail-float-left"> {/* 왼쪽에 제품 이미지 표시 */}
-          
           <img
             className="product-image"
-            src={`http://localhost:8080/${product.imagePath}`} // 프록시 설정이 되어 있으면, localhost:8080으로 API 요청
+            src={`http://localhost:8080/${product.imagePath}`} // 이미지 경로
             alt={product.name}
           />
         </div>
-        
 
         <div className="detail-float-right"> {/* 오른쪽에 제품 정보 표시 */}
           <p className="product-kind">{product.kind}</p> {/* 제품 종류 */}
@@ -107,7 +104,7 @@ const Detail = () => {
 
           <hr className="divider" />
           <p className="product-price">{product.price} 원</p> {/* 제품 가격 */}
-          
+
           <div className="detail-desc">
             {/* 상품 상세설명 입력 필요 시 이곳에 내용을 추가 */}
             {/* <p className="description-text">{product.description}</p> */}
@@ -162,10 +159,7 @@ const Detail = () => {
           </div>
         </div>
       </div>
-
-      
     </section>
-    
   );
 };
 

@@ -12,7 +12,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("/api/products").then((res) => setProducts(res.data));
+        axios.get("http://localhost:8080/api/products").then((res) => setProducts(res.data));
     }, []);
 
     useEffect(() => {
@@ -43,12 +43,12 @@ const Home = () => {
 
     const handleCategoryClick = (kind) => {
         const url =
-            kind === "new" ? "/api/products/new" : `/api/products/kind/${kind}`;
+            kind === "new" ? "http://localhost:8080/api/products/new" : `http://localhost:8080/api/products/kind/${kind}`;
         axios.get(url).then((res) => setProducts(res.data));
     };
 
     const handleViewAll = () => {
-        axios.get("/api/products").then((res) => setProducts(res.data));
+        axios.get("http://localhost:8080/api/products").then((res) => setProducts(res.data));
     };
 
     const openChat = async () => {
@@ -60,7 +60,7 @@ const Home = () => {
         if (username === "master") {
             // 최신 메시지를 저장하는 API 호출
             try {
-                await axios.post('/chat/save-latest-messages');
+                await axios.post('http://localhost:8080/chat/save-latest-messages');
                 console.log("최신 메시지가 MasterChatList에 저장되었습니다.");
             } catch (error) {
                 console.error("최신 메시지를 저장하는 중 오류 발생:", error);
@@ -179,7 +179,7 @@ const Home = () => {
                             onClick={() => navigate(`/detail/${product.id}`)}
                             className="grid-item"
                         >
-                            <img src={product.imagePath} alt={product.name} />
+                            <img src={`http://localhost:8080/${product.imagePath}`} alt={product.name} />
                             <h3>{product.name}</h3>
                             <p>{product.price}원</p>
                             <p>{product.kind}</p>

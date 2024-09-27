@@ -36,7 +36,7 @@ const Write = () => {
 
         try {
             // POST 요청을 통해 게시물 등록 시도
-            await axios.post('/api/posts', { postTitle, postDetail, postId: userId }); // 사용자 ID 추가
+            await axios.post('http://localhost:8080/api/posts', { postTitle, postDetail, postId: userId }); // 사용자 ID 추가
             alert('게시물이 등록되었습니다.'); // 등록 성공 시 알림
             navigate('/board'); // 게시판 페이지로 이동
         } catch (error) {
@@ -90,7 +90,6 @@ const Write = () => {
     </nav>
             <h1 className='form-title'>문의글 작성</h1>
             
-            
             <input className='input-field input-title'
                 type="text" 
                 placeholder="제목을 입력하세요" 
@@ -103,8 +102,8 @@ const Write = () => {
                 onChange={(e) => setPostDetail(e.target.value)} // 입력값 변경 시 상태 업데이트
             />
             <div className="button-group">
-            <button className='submit-button' onClick={handleSubmit}>등록</button>
-            <button className="button back-button" onClick={() => window.history.back()}>뒤로가기</button>
+                <button className='submit-button' onClick={handleSubmit}>등록</button>
+                <button className="button back-button" onClick={() => window.history.back()}>뒤로가기</button>
             </div>
         </div>
     );
