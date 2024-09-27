@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"; // 명명된 내보내기로 가져오기
-
-// 서버와의 연결 설정 (4000번 포트로 연결)
-const socket = io("http://localhost:4000");
 
 const Chat = () => {
   const [message, setMessage] = useState(""); // 입력된 메시지 상태
@@ -29,22 +25,6 @@ const Chat = () => {
   // 컴포넌트가 마운트될 때 채팅 목록을 가져옴
   useEffect(() => {
     fetchChats(); // 초기 채팅 목록 가져오기
-
-    // 소켓에서 채팅 메시지를 수신
-    socket.on("chat message", (msg) => {
-      const [user, message] = msg.split(": "); // 메시지를 user와 message로 분리
-      if (user !== username) {
-        const newMessage = { message, username: user, createdAt: new Date() }; // createdAt 추가
-        setChat((prevChat) => {
-          const updatedChat = [...prevChat, newMessage];
-          return updatedChat.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // 시간 오름차순으로 정렬
-        });
-      }
-    });
-
-    return () => {
-      socket.off("chat message"); // 언마운트 시 이벤트 제거
-    };
   }, [username]); // username이 변경되면 효과 재실행
 
   // 메시지 전송 핸들러
@@ -55,8 +35,6 @@ const Chat = () => {
         message: `${username}: ${message}`, // username 접두사 추가
         username: username,
       };
-
-      socket.emit("chat message", `${username}: ${message}`);
 
       axios
         .post("http://localhost:8080/chat/send", formattedMessage) // URL 수정
