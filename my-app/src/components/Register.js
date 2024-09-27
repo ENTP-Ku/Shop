@@ -110,6 +110,7 @@ const Register = () => {
       {isUniqueNumberTaken && <span className="error-message">이미 가입한 회원입니다.</span>}
 
       <button onClick={handleRegister} className="register-button">가입</button>
+      
      {/* 푸터 */}
      <footer className="footer">
         <p>&copy; 2024 MyApp. All rights reserved.</p>
