@@ -9,6 +9,24 @@ const BoardDetail = () => {
     const navigate = useNavigate(); // 페이지 전환을 위한 navigate 훅 사용
     const [post, setPost] = useState(null); // 게시글 데이터를 저장하기 위한 상태 변수
 
+    // JWT 토큰에서 username을 추출하는 함수
+    const getUsernameFromToken = () => {
+        const token = localStorage.getItem('jwt'); // 로컬 스토리지에서 jwt 토큰 가져오기
+        if (!token) return null; // 토큰이 없으면 null 반환
+
+        // JWT의 페이로드 부분 디코딩 (헤더.페이로드.서명에서 페이로드 추출)
+        const base64Url = token.split('.')[1]; // 토큰의 두 번째 부분(페이로드) 가져오기
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // base64url 형식 디코딩 준비
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join('')); // base64를 디코딩하여 JSON 형식으로 변환
+
+        const payload = JSON.parse(jsonPayload); // JSON을 파싱하여 객체로 변환
+        return payload.username; // 페이로드에서 username 추출
+    };
+
+    const loggedInUsername = getUsernameFromToken(); // 토큰에서 추출한 username
+
     // 컴포넌트가 마운트될 때 게시글 상세 데이터를 가져오는 useEffect 훅
     useEffect(() => {
         axios.get(`http://localhost:8080/api/posts/${id}`) // 게시글 ID에 해당하는 API 요청
@@ -22,12 +40,20 @@ const BoardDetail = () => {
 
     // 게시물 삭제 핸들러
     const handleDelete = async () => {
-        try {
-            await axios.delete(`http://localhost:8080/api/posts/${id}`); // 게시글 삭제 요청
-            alert('게시물이 삭제되었습니다.'); // 성공 메시지 출력
-            navigate('/board'); // 게시판 페이지로 이동
-        } catch (error) {
-            alert('게시물 삭제에 실패했습니다.'); // 에러 발생 시 메시지 출력
+        // 로컬 유저의 username과 게시글 작성자의 postId가 일치하는지 확인
+        console.log(loggedInUsername);
+        console.log(post.postId);
+        if (loggedInUsername === post.postId) { // postId와 loggedInUsername 비교
+            try {
+                await axios.delete(`http://localhost:8080/api/posts/${id}`); // 게시글 삭제 요청
+                alert('게시물이 삭제되었습니다.'); // 성공 메시지 출력
+                navigate('/board'); // 게시판 페이지로 이동
+            } catch (error) {
+                alert('게시물 삭제에 실패했습니다.'); // 에러 발생 시 메시지 출력
+            }
+        } else {
+            // 일치하지 않으면 경고 메시지 출력
+            alert('게시물을 삭제할 권한이 없습니다.');
         }
     };
 
