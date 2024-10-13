@@ -24,7 +24,7 @@ public class ProductController {
     // 새로운 제품 목록을 반환하는 GET 요청 처리
     @GetMapping("/new") // /api/products/new 엔드포인트에 대한 GET 요청 처리
     public List<Product> getNewProducts() {
-        return productService.findTop5ByOrderByUploadDataDesc(); // 제품 서비스에서 새로운 제품 조회 후 반환
+        return productService.findTop5ByOrderByUploadDateDesc(); // 제품 서비스에서 새로운 제품 조회 후 반환
     }
 
     // 특정 ID로 제품을 조회하는 GET 요청 처리
