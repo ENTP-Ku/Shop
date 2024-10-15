@@ -11,6 +11,7 @@ services:
       - backend
     networks:
       - app-network
+    container_name: frontend
 
   backend:
     build:
@@ -26,6 +27,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: 1234  # MySQL 비밀번호
     networks:
       - app-network
+    container_name: backend
 
   db:
     image: mysql:8  # MySQL 8 이미지를 사용
@@ -38,6 +40,31 @@ services:
       - app-network
     volumes:
       - db_data:/var/lib/mysql  # 데이터 영속성을 위한 볼륨
+    container_name: database
+
+  socket-server:
+    build:
+      context: ./my-app  # 소켓 서버를 위한 빌드 컨텍스트
+      dockerfile: src/components/Dockerfile  # Dockerfile 경로
+    ports:
+      - "4000:4000"  # 호스트의 4000 포트를 컨테이너의 4000 포트에 매핑
+    networks:
+      - app-network
+    container_name: socket-server
+
+  nginx:
+    image: nginx:alpine  # Nginx 알파인 이미지 사용
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # Nginx 설정 파일을 컨테이너에 복사
+    ports:
+      - "81:3000"  # 호스트의 80 포트를 컨테이너의 80 포트에 매핑
+    depends_on:
+      - react-app
+      - backend
+      - socket-server
+    networks:
+      - app-network
+    container_name: nginx
 
 networks:
   app-network:  # 앱 네트워크 정의
