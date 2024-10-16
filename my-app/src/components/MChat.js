@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"; // React와 상태 및 효�
 import axios from "axios"; // axios 가져오기
 import io from "socket.io-client"; // socket.io-client 가져오기
 
-const socket = io("http://localhost:4000"); // 소켓 서버에 연결
+const socket = io("http://localhost:81"); // 소켓 서버에 연결
 
 const MChat = () => {
   const [messages, setMessages] = useState([]); // 메시지 상태
