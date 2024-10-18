@@ -3,7 +3,7 @@ import axios from "axios"; // API 요청을 위한 axios 임포트
 import io from "socket.io-client"; // Socket.IO 클라이언트 임포트
 import { jwtDecode } from "jwt-decode"; // JWT 디코딩을 위한 라이브러리 임포트
 
-const socket = io("http://localhost:81"); // Socket 서버에 연결
+const socket = io("http://localhost:4000"); // Socket 서버에 연결
 
 const Chat = () => {
   const [message, setMessage] = useState(""); // 사용자 입력 메시지 상태
