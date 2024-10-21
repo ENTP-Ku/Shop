@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain; // 보안 필터 체인을 위한 import
 import org.springframework.web.servlet.config.annotation.CorsRegistry; // CORS 설정을 위한 클래스
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer; // Spring MVC 설정 인터페이스
+import org.springframework.lang.NonNull;
+
 
 // Spring Security 및 CORS 구성을 위한 클래스
 @Configuration
@@ -16,18 +18,18 @@ public class SecurityConfig implements WebMvcConfigurer {
     // 보안 필터 체인을 설정하는 메소드
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // CSRF 보호 비활성화
-            .authorizeRequests() // 요청에 대한 권한 설정
-            .anyRequest().permitAll() // 모든 요청은 기본적으로 접근 허용
-            .and()
-            .httpBasic(); // 기본 HTTP 인증 사용
+        http
+        .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
+        .authorizeHttpRequests(authorize -> authorize // 요청에 대한 권한 설정
+            .anyRequest().permitAll()) // 모든 요청은 기본적으로 접근 허용
+            .httpBasic(httpBasic -> httpBasic.realmName("Realm")); // 기본 HTTP 인증 사용 및 Realm 설정
 
         return http.build(); // 설정 완료 후 보안 필터 체인 반환
     }
 
     // CORS 매핑 추가
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/**") // 모든 경로에 대해 CORS 설정
                 .allowedOrigins("*") // 모든 출처 허용
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 허용할 HTTP 메소드

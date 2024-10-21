@@ -19,7 +19,7 @@ const Register = () => {
     const checkUsername = async () => {
       if (id) {
         try {
-          const response = await axios.post('http://localhost:8080/api/users/check-username', { username: id }); // 아이디 중복 체크 API 호출
+          const response = await axios.post('http://localhost:82/api/users/check-username', { username: id }); // 아이디 중복 체크 API 호출
           setIsUsernameTaken(response.data); // 중복 여부 상태 업데이트
         } catch (err) {
           console.error('중복 체크 오류:', err); // 오류 로그

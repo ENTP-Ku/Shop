@@ -13,7 +13,7 @@ const Home = () => {
 
     // 컴포넌트가 마운트될 때 API를 통해 제품 목록을 가져옴
     useEffect(() => {
-        axios.get("http://localhost:8080/api/products").then((res) => setProducts(res.data));
+        axios.get("http://localhost:82/api/products").then((res) => setProducts(res.data));
     }, []); // 빈 배열로 effect가 한번만 실행되도록 설정
 
     // JWT를 로컬 스토리지에서 가져와서 사용자 이름을 설정

@@ -2,6 +2,8 @@ package com.example.demo; // 패키지 선언
 
 import java.util.List; // 리스트 자료형을 사용하기 위한 import
 import java.util.Optional; // Optional 클래스를 사용하기 위한 import
+import org.springframework.lang.NonNull;
+
 
 import org.springframework.data.jpa.repository.JpaRepository; // JPA Repository 기능을 사용하기 위한 import
 
@@ -15,5 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByKind(String kind); // 주어진 종류의 제품 목록 반환
 
     // ID로 제품 조회
-    Optional<Product> findById(Long id); // ID로 제품을 조회하고, 존재하지 않을 경우 Optional로 반환
+    @NonNull
+    Optional<Product> findById(@NonNull Long id); // ID로 제품을 조회하고, 존재하지 않을 경우 Optional로 반환
 }
