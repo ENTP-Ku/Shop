@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"; // React 및 상태 관리 �
 import axios from "axios"; // API 요청을 위한 axios 임포트
 import io from "socket.io-client"; // Socket.IO 클라이언트 임포트
 
-const socket = io("http://localhost:82"); // 소켓 서버에 연결
+const socket = io("http://localhost:4000"); // 소켓 서버에 연결
 
 const ChatML = () => {
   const [chats, setChats] = useState([]); // 사용자 목록과 최신 메시지 상태
