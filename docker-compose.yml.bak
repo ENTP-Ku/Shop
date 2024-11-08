@@ -54,7 +54,16 @@ services:
 
 
 
-
+  nginx:  # Nginx 서비스 추가
+    image: nginx:latest  # Nginx의 최신 이미지를 사용
+    ports:
+      - "83:83"  # 호스트의 83 포트를 Nginx 컨테이너의 83 포트에 매핑
+    volumes:
+      - ./nginx.conf:/etc/nginx/sites-enabled/default  # 로컬 Nginx 설정 파일을 컨테이너에 매핑
+    depends_on:
+      - react-app  # frontend 서비스가 먼저 시작된 후에 시작
+    networks:
+      - app-network
 
 
 
