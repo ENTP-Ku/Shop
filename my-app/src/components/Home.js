@@ -91,7 +91,7 @@ const Home = () => {
     return (
         <div>
             <header>
-                <h1>쇼핑몰</h1> {/* 상단 제목 */}
+                <h1>Amor</h1> {/* 상단 제목 */}
                 <nav className="nav-container"> {/* 내비게이션 컨테이너 */}
                     <div style={{ display: "flex", gap: "10px" }}>
                         <button onClick={() => navigate("/board")} className="button">
