@@ -64,6 +64,35 @@ public class ProductService {
         return productRepository.save(newProduct); // 제품을 저장하고 반환
     }
 
+
+        /*
+        // 이미지 저장 경로 설정 (도커 컨테이너 내 경로로 수정)
+        String relativePath = "/app/images/"; // 도커 컨테이너 내 절대 경로
+        String absolutePath = System.getProperty("user.dir") + relativePath; // 절대 경로 설정
+
+        // 이미지 저장 로직
+        if (image != null && !image.isEmpty()) {
+            try {
+                // 파일 이름 가져오기
+                String fileName = image.getOriginalFilename();
+
+                // 이미지 파일을 지정된 경로에 저장
+                File destinationFile = new File(absolutePath + fileName); // 절대 경로로 수정
+                destinationFile.getParentFile().mkdirs(); // 부모 디렉토리 생성 (없을 경우)
+                image.transferTo(destinationFile); // 파일 전송
+
+                // 저장된 이미지 경로를 Product 객체에 설정
+                newProduct.setImagePath("images/" + fileName); // 저장된 이미지 경로
+            } catch (IOException e) {
+                e.printStackTrace(); // 예외 처리
+            }
+        }
+        return productRepository.save(newProduct); // 제품을 저장하고 반환
+    }
+        */
+
+
+
     // 특정 ID의 제품을 삭제하는 메소드
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId); // 제품을 ID로 삭제

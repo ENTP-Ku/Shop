@@ -4,9 +4,11 @@ FROM openjdk:17
 # 작업 디렉토리를 설정합니다.
 WORKDIR /app
 
+# 이미지 파일을 저장할 디렉토리 생성
+#RUN mkdir -p /app/images
+
 # JAR 파일을 복사합니다.
 COPY target/*.jar app.jar
-
 
 # 앱을 실행합니다.
 ENTRYPOINT ["java", "-jar", "app.jar"]
